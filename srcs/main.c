@@ -6,172 +6,191 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 09:30:44 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 14:23:47 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static inline void	ft_put(uint32_t *pixels, int x, int y,
-		uint32_t color)
+void	ft_freesplit(char **split)
 {
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-		pixels[y * WIDTH + x] = color;
+	int	i;
+
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
-void	ft_axes(t_fdf *s)
+void	ft_count(t_fdf *f, int fd)
+{
+	char	*line;
+	char	**values;
+	int		x;
+
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		values = ft_split(line, ' ');
+		if (f->map.height == 0)
+		{
+			x = 0;
+			while (values[x])
+				x++;
+			f->map.width = x;
+		}
+		f->map.height++;
+		free(line);
+		ft_freesplit(values);
+	}
+}
+
+void	ft_altitudes(t_fdf *f)
+{
+	int	i;
+
+	f->map.altitudes = (int **) malloc(sizeof(int *) * f->map.height);
+	i = 0;
+	while (++i < f->map.height)
+	{
+		f->map.altitudes[i] = (int *) malloc(sizeof(int) * f->map.width);
+		i++;
+	}
+}
+
+void	ft_reading(t_fdf *f, int fd)
+{
+	int		x;
+	int		y;
+	char	*line;
+	char	**values;
+
+	y = 0;
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
+		values = ft_split(line, ' ');
+		x = 0;
+		while (values[x] && x < f->map.width)
+		{
+			f->map.altitudes[y][x] = ft_atoi(values[x]);
+			x++;
+		}
+		y++;
+		free(line);
+		ft_freesplit(values);
+	}
+}
+
+void	ft_read(t_fdf *f, char *filename)
+{
+	int		fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return ;
+	f->map.height = 0;
+	f->map.width = 0;
+	ft_count(f, fd);
+	close(fd);
+	ft_altitudes(f);
+	fd = open(filename, O_RDONLY);
+	ft_reading(f, fd);
+	close(fd);
+}
+
+void	ft_right(t_fdf *f, t_vec2 next2d, int x, int y)
+{
+	if (x < f->map.width - 1)
+	{
+		next2d = ft_iso((t_vec3){x + 1, y, f->map.altitudes[y][x + 1]});
+		next2d.x = next2d.x * f->scale + f->offset_x;
+		next2d.y = next2d.y * f->scale + f->offset_y;
+		ft_bresenham(f, point2d, );
+	}
+}
+
+static void	ft_map(t_fdf *f)
 {
 	int	x;
 	int	y;
+	t_vec3	point3d;
+	t_vec2	point2d;
+	t_vec2	next2d;
 
-	x = -1;
-	while (++x < WIDTH)
-		s->pixels[(HEIGHT / 2) * WIDTH + x] = 0xFEFEFE;
-	y = -1;
-	while (++y < HEIGHT)
-		s->pixels[y * WIDTH + (WIDTH / 2)] = 0xFEFEFE;
-}
-
-void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
-{
-	bre->dx = abs(b.x - a.x);
-	bre->dy = abs(b.y - a.y);
-	if (a.x < b.x)
-		bre->sx = 1;
-	else
-		bre->sx = -1;
-	if (a.y < b.y)
-		bre->sy = 1;
-	else
-		bre->sy = -1;
-	bre->err = bre->dx - bre->dy;
-	bre->e2 = 0;
-}
-
-void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
-{
-	ft_bresenham_init(&f->bre, a, b);
-	while (1)
+	y = 0;
+	while (y < f->map.height)
 	{
-		ft_put(f->pixels, a.x, a.y, 0xFEFEFE);
-		if (a.x == b.x && a.y == b.y)
-			break;
-		f->bre.e2 = 2 * f->bre.err;
-		if (f->bre.e2 > -f->bre.dy)
+		x = 0;
+		while (x < f->map.width)
 		{
-			f->bre.err -= f->bre.dy;
-			a.x += f->bre.sx;
-		}
-		if (f->bre.e2 < f->bre.dx)
-		{
-			f->bre.err += f->bre.dx;
-			a.y += f->bre.sy;
+			point3d = (t_vec3){x, y, f->map.altitudes[y][x]};
+			ft_rotatex(&point3d, f->angle_x);
+			ft_rotatey(&point3d, f->angle_y);
+			ft_rotatez(&point3d, f->angle_z);
+			point2d = ft_iso(point3d);
+			point2d.x = point2d.x * f->scale + f->offset_x;
+			point2d.y = point2d.y * f->scale + f->offset_y;
+			ft_right(f, next2d, x, y);
+			ft_left(f, next2d, x, y);
+			x++;
 		}
 	}
-}
-
-t_vec2	ft_iso(t_vec3 p)
-{
-	t_vec2	result;
-
-	result.x = (int) ((p.x - p.y) * cos(0.523599));
-	result.y = (int) ((p.x + p.y) * sin(0.523599) - p.z);
-	return (result);
-}
-
-void	ft_rotatex(t_vec3 *p, float angle)
-{
-	float	y;
-	float	z;
-
-	y = p->y;
-	z = p->z;
-	p->y = y * cosf(angle) - z * sinf(angle);
-	p->z = y * sinf(angle) + z * cosf(angle);
-}
-
-void	ft_rotatey(t_vec3 *p, float angle)
-{
-	float	x;
-	float	z;
-
-	x = p->x;
-	z = p->z;
-	p->x = x * cosf(angle) + z * sinf(angle);
-	p->z = -x * sinf(angle) + z * cosf(angle);
-}
-
-void	ft_rotatez(t_vec3 *p, float angle)
-{
-	float	x;
-	float	y;
-
-	x = p->x;
-	y = p->y;
-	p->x = x * cosf(angle) - y * sinf(angle);
-	p->y = x * sinf(angle) + y * cosf(angle);
-}
-
-static void	ft_drawloop(t_fdf *f)
-{
-	t_vec3	cube[8] = {
-		{-1, -1, -1}, {1, -1, -1}, {1, 1, -1}, {-1, 1, -1},
-		{-1, -1,  1}, {1, -1,  1}, {1, 1,  1}, {-1, 1,  1}
-	};
-	int edges[12][2] = {
-		{0,1}, {1,2}, {2,3}, {3,0},
-		{4,5}, {5,6}, {6,7}, {7,4},
-		{0,4}, {1,5}, {2,6}, {3,7}
-	};
-	t_vec2	projected[8];
-
-	for (int i = 0; i < 8; i++)
-	{
-		t_vec3 p = cube[i];
-		// rotacionar
-		ft_rotatex(&p, f->angle_x);
-		ft_rotatey(&p, f->angle_y);
-		ft_rotatez(&p, f->angle_z);
-		// escalar (para caber na tela)
-		p.x *= 100;
-		p.y *= 100;
-		p.z *= 100;
-		// projetar
-		projected[i] = ft_iso(p);
-		// centralizar na tela
-		projected[i].x += WIDTH / 2;
-		projected[i].y += HEIGHT / 2;
-	}
-	for (int i = 0; i < 12; i++)
-		ft_bresenham(f, projected[edges[i][0]], projected[edges[i][1]]);
 }
 
 void	ft_draw(t_fdf *f)
 {
 	ft_clearimg(f);
 	ft_axes(f);
-	ft_drawloop(f);
+	ft_draw(f);
 }
 
-int	main(void)
+static int	ft_init(t_fdf *f)
+{
+	f->angle_x = 0.0f;
+	f->angle_y = 0.0f;
+	f->angle_z = 0.0f;
+	f->scale = 20.0f;
+	f->z_scale = 1.0f;
+	f->offset_x = WIDTH / 2;
+	f->offset_y = HEIGHT / 2;
+	f->mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
+	if (!f->mlx)
+		return (ft_errorinit(f->mlx));
+	f->img = mlx_new_image(f->mlx, WIDTH, HEIGHT);
+	if (!f->img)
+		return (ft_errorinit(f->mlx));
+	f->pixels = (uint32_t *) f->img->pixels;
+	return (0);
+}
+
+void	ft_freemap(t_fdf *f)
+{
+	int	i;
+
+	i = 0;
+	while (i < f->map.height)
+	{
+		free(f->map.altitudes[i]);
+		i++;
+	}
+	free(f->map.altitudes);
+}
+
+int	main(int argc, char *argv[])
 {
 	t_fdf	f;
 
-	f.a = 1.0;
-	f.b = 1.0;
-	f.c = 0.0;
-	f.d = 0.0;
-	f.angle_x = 0.0f;
-	f.angle_y = 0.0f;
-	f.angle_z = 0.0f;
-	f.mode = 0;
-	f.mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
-	if (!f.mlx)
-		return (ft_errorinit(f.mlx));
-	f.img = mlx_new_image(f.mlx, WIDTH, HEIGHT);
-	if (!f.img)
-		return (ft_errorinit(f.mlx));
-	f.pixels = (uint32_t *) f.img->pixels;
+	if (argc != 2)
+		return (1);
+	if (ft_init(&f) != 0)
+		return (1);
+	ft_read(&f, argv[1]);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
 		return (ft_errorimg(f.mlx, f.img));
@@ -181,5 +200,6 @@ int	main(void)
 	ft_printf("1-4: modo A,B,D,D | Scroll: alterar | R: reset\n", 1);
 	mlx_loop(f.mlx);
 	mlx_terminate(f.mlx);
+	ft_freemap(&f);
 	return (0);
 }

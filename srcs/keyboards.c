@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 07:53:22 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:06:53 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_keyhook(mlx_key_data_t k, void *param)
 {
+	t_fdf	*f;
 
-	t_fdf *f = (t_fdf *)param;
-
+	f = (t_fdf *)param;
 	if (k.action != MLX_PRESS && k.action != MLX_REPEAT)
-		return;
+		return ;
 	if (k.key == MLX_KEY_LEFT)
 		f->angle_y -= 0.1f;
 	else if (k.key == MLX_KEY_RIGHT)
@@ -31,31 +31,18 @@ void	ft_keyhook(mlx_key_data_t k, void *param)
 		f->angle_z -= 0.1f;
 	else if (k.key == MLX_KEY_E)
 		f->angle_z += 0.1f;
-	else if (k.key == MLX_KEY_R) // reset
+	else if (k.key == MLX_KEY_R)
 	{
 		f->angle_x = 0;
 		f->angle_y = 0;
 		f->angle_z = 0;
 	}
-
-	ft_draw(f); // redesenhar após input
+	ft_draw(f);
 }
 
 void	ft_scrollhook(double xd, double yd, void *param)
 {
-	t_fdf	*f;
-	double	delta;
-
-	f = (t_fdf *)param;
-	delta = yd * 0.1;
-	if (f->mode == 0)
-		f->a += delta;
-	else if (f->mode == 1)
-		f->b += delta;
-	else if (f->mode == 2)
-		f->c += delta;
-	else if (f->mode == 3)
-		f->d += delta;
-	ft_draw(f);
+	(void ) yd;
 	(void ) xd;
+	(void ) param;
 }
