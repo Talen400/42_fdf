@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/15 23:58:04 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 07:53:22 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,31 @@
 
 void	ft_keyhook(mlx_key_data_t k, void *param)
 {
-	t_fdf	*f;
 
-	f = (t_fdf *)param;
-	if (k.action == MLX_PRESS)
+	t_fdf *f = (t_fdf *)param;
+
+	if (k.action != MLX_PRESS && k.action != MLX_REPEAT)
+		return;
+	if (k.key == MLX_KEY_LEFT)
+		f->angle_y -= 0.1f;
+	else if (k.key == MLX_KEY_RIGHT)
+		f->angle_y += 0.1f;
+	else if (k.key == MLX_KEY_UP)
+		f->angle_x -= 0.1f;
+	else if (k.key == MLX_KEY_DOWN)
+		f->angle_x += 0.1f;
+	else if (k.key == MLX_KEY_Q)
+		f->angle_z -= 0.1f;
+	else if (k.key == MLX_KEY_E)
+		f->angle_z += 0.1f;
+	else if (k.key == MLX_KEY_R) // reset
 	{
-		if (k.key == MLX_KEY_ESCAPE)
-			mlx_close_window(f->mlx);
-		else if (k.key >= MLX_KEY_1 && k.key <= MLX_KEY_4)
-        {
-            f->mode = k.key - MLX_KEY_1;
-            ft_draw(f);
-		}
-		else if (k.key == MLX_KEY_R)
-		{
-			f->a = 1.0;
-			f->b = 1.0;
-			f->c = 0.0;
-			f->d = 0.0;
-			ft_draw(f);
-		}
+		f->angle_x = 0;
+		f->angle_y = 0;
+		f->angle_z = 0;
 	}
+
+	ft_draw(f); // redesenhar após input
 }
 
 void	ft_scrollhook(double xd, double yd, void *param)

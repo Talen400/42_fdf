@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 05:03:45 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 07:49:45 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,18 @@
 # define WIDTH 1280
 # define HEIGHT 800
 
-typedef struct s_point
+typedef struct s_vec3
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vec3;
+
+typedef struct s_vec2
 {
 	int	x;
 	int	y;
-}	t_point;
+}	t_vec2;
 
 typedef struct s_bresenham
 {
@@ -48,6 +55,9 @@ typedef struct s_fdf
 	double		b;
 	double		c;
 	double		d;
+	float		angle_x;
+	float		angle_y;
+	float		angle_z;
 	t_bresenham	bre;
 }	t_fdf;
 

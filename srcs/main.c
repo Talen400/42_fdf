@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 05:12:10 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 08:07:38 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static inline void	ft_put(uint32_t *pixels, int x, int y,
 		uint32_t color)
 {
-	if (x >= 0 && x < WIDTH && y >= 0 && y <= HEIGHT)
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 		pixels[y * WIDTH + x] = color;
 }
 
@@ -32,7 +32,7 @@ void	ft_axes(t_fdf *s)
 		s->pixels[y * WIDTH + (WIDTH / 2)] = 0x404040FF;
 }
 
-void	ft_bresenham_init(t_bresenham *bre, t_point a, t_point b)
+void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
 {
 	bre->dx = abs(b.x - a.x);
 	bre->dy = abs(b.y - a.y);
@@ -48,7 +48,7 @@ void	ft_bresenham_init(t_bresenham *bre, t_point a, t_point b)
 	bre->e2 = 0;
 }
 
-void	ft_bresenham(t_fdf *f, t_point a, t_point b)
+void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
 {
 	ft_bresenham_init(&f->bre, a, b);
 	while (1)
@@ -70,34 +70,80 @@ void	ft_bresenham(t_fdf *f, t_point a, t_point b)
 	}
 }
 
-static t_point	ft_calc(t_fdf *f, int x)
+t_vec2	ft_iso(t_vec3 p)
 {
-	t_point	p;
-	double	math_x;
-	double	math_y;
+	t_vec2	result;
 
-	math_x = (x - (WIDTH / 2)) * 3 / 100.0;
-	math_y = f->a * sin(f->b * math_x + f->c) + f->d;	
-	p.x = x;
-	p.y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
-	return (p);	
+	result.x = (int) ((p.x - p.y) * cos(0.523599));
+	result.y = (int) ((p.x + p.y) * sin(0.523599) - p.z);
+	return (result);
+}
+
+void	ft_rotatex(t_vec3 *p, float angle)
+{
+	float	y;
+	float	z;
+
+	y = p->y;
+	z = p->z;
+	p->y = y * cosf(angle) - z * sinf(angle);
+	p->z = y * sinf(angle) + z * cosf(angle);
+}
+
+void	ft_rotatey(t_vec3 *p, float angle)
+{
+	float	x;
+	float	z;
+
+	x = p->x;
+	z = p->z;
+	p->x = x * cosf(angle) + z * sinf(angle);
+	p->z = -x * sinf(angle) + z * cosf(angle);
+}
+
+void	ft_rotatez(t_vec3 *p, float angle)
+{
+	float	x;
+	float	y;
+
+	x = p->x;
+	y = p->y;
+	p->x = x * cosf(angle) - y * sinf(angle);
+	p->y = x * sinf(angle) + y * cosf(angle);
 }
 
 static void	ft_drawloop(t_fdf *f)
 {
-	int		x;
-	t_point	prev;
-	t_point	curr;
+	t_vec3	cube[8] = {
+		{-1, -1, -1}, {1, -1, -1}, {1, 1, -1}, {-1, 1, -1},
+		{-1, -1,  1}, {1, -1,  1}, {1, 1,  1}, {-1, 1,  1}
+	};
+	int edges[12][2] = {
+		{0,1}, {1,2}, {2,3}, {3,0},
+		{4,5}, {5,6}, {6,7}, {7,4},
+		{0,4}, {1,5}, {2,6}, {3,7}
+	};
+	t_vec2	projected[8];
 
-	x = 0;
-	prev = ft_calc(f, x);
-	while (x < WIDTH)
+	for (int i = 0; i < 8; i++)
 	{
-		curr = ft_calc(f, x);
-		ft_bresenham(f, prev, curr);
-		prev = curr;
-		x++;
+		t_vec3 p = cube[i];
+		// rotacionar
+		ft_rotatex(&p, f->angle_x);
+		ft_rotatey(&p, f->angle_y);
+		ft_rotatez(&p, f->angle_z);
+		// escalar (para caber na tela)
+		p.x *= 100;
+		p.y *= 100;
+		p.z *= 100;
+		// projetar
+		projected[i] = ft_iso(p);
+		// centralizar na tela
+		projected[i].x += WIDTH / 2;
+		projected[i].y += HEIGHT / 2;
 	}
+	for (int i = 0; i < 12; i++)
+		ft_bresenham(f, projected[edges[i][0]], projected[edges[i][1]]);
 }
 
 void	ft_draw(t_fdf *f)
@@ -115,6 +161,9 @@ int	main(void)
 	f.b = 1.0;
 	f.c = 0.0;
 	f.d = 0.0;
+	f.angle_x = 0.0f;
+	f.angle_y = 0.0f;
+	f.angle_z = 0.0f;
 	f.mode = 0;
 	f.mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
 	if (!f.mlx)
