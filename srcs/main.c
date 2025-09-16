@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 03:29:18 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 05:12:10 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,62 +32,79 @@ void	ft_axes(t_fdf *s)
 		s->pixels[y * WIDTH + (WIDTH / 2)] = 0x404040FF;
 }
 
-void	ft_bresenham(t_fdf *f, int x0, int y0, int x1, int y1)
+void	ft_bresenham_init(t_bresenham *bre, t_point a, t_point b)
 {
-	t_bresenham	bre;
+	bre->dx = abs(b.x - a.x);
+	bre->dy = abs(b.y - a.y);
+	if (a.x < b.x)
+		bre->sx = 1;
+	else
+		bre->sx = -1;
+	if (a.y < b.y)
+		bre->sy = 1;
+	else
+		bre->sy = -1;
+	bre->err = bre->dx - bre->dy;
+	bre->e2 = 0;
+}
 
-	bre.dx = abs(x1 - x0);
-	bre.dy = abs(y1 - y0);
-	if (x0 < x1)
-		bre.sx = 1;
-	else
-		bre.sx = -1;
-	if (y0 < y1)
-		bre.sy = 1;
-	else
-		bre.sy = -1;
-	bre.err = bre.dx - bre.dy;
+void	ft_bresenham(t_fdf *f, t_point a, t_point b)
+{
+	ft_bresenham_init(&f->bre, a, b);
 	while (1)
 	{
-		ft_put(f->pixels, x0, y0, 0x404040FF);
-		if (x0 == x1 && y0 == y1)
+		ft_put(f->pixels, a.x, a.y, 0x404040FF);
+		if (a.x == b.x && a.y == b.y)
 			break;
-		bre.e2 = 2 * bre.err;
-		if (bre.e2 > -bre.dy)
+		f->bre.e2 = 2 * f->bre.err;
+		if (f->bre.e2 > -f->bre.dy)
 		{
-			bre.err -= bre.dy;
-			x0 += bre.sx;
+			f->bre.err -= f->bre.dy;
+			a.x += f->bre.sx;
 		}
-		if (bre.e2 < bre.dx)
+		if (f->bre.e2 < f->bre.dx)
 		{
-			bre.err += bre.dx;
-			y0 += bre.sy;
+			f->bre.err += f->bre.dx;
+			a.y += f->bre.sy;
 		}
 	}
 }
 
-void	ft_draw(t_fdf	*f)
+static t_point	ft_calc(t_fdf *f, int x)
 {
-	int		x;
-	int		y;
+	t_point	p;
 	double	math_x;
 	double	math_y;
-	int		prev_y;
 
+	math_x = (x - (WIDTH / 2)) * 3 / 100.0;
+	math_y = f->a * sin(f->b * math_x + f->c) + f->d;	
+	p.x = x;
+	p.y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
+	return (p);	
+}
+
+static void	ft_drawloop(t_fdf *f)
+{
+	int		x;
+	t_point	prev;
+	t_point	curr;
+
+	x = 0;
+	prev = ft_calc(f, x);
+	while (x < WIDTH)
+	{
+		curr = ft_calc(f, x);
+		ft_bresenham(f, prev, curr);
+		prev = curr;
+		x++;
+	}
+}
+
+void	ft_draw(t_fdf *f)
+{
 	ft_clearimg(f);
 	ft_axes(f);
-	x = -1;
-	math_x = (x - (WIDTH / 2)) * 3 / 100.0;
-	math_y = f->a * sin(f->b * math_x + f->c) + f->d;
-	prev_y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
-	while (++x < WIDTH)
-	{
-		math_x = (x - (WIDTH / 2)) * 3 / 100.0;
-		math_y = f->a * sin(f->b * math_x + f->c) + f->d;
-		y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
-		ft_bresenham(f, x - 1, prev_y, x, y);
-		prev_y = y;
-	}
+	ft_drawloop(f);
 }
 
 int	main(void)
@@ -99,7 +116,7 @@ int	main(void)
 	f.c = 0.0;
 	f.d = 0.0;
 	f.mode = 0;
-	f.mlx = mlx_init(WIDTH, HEIGHT, "fract-ol", true);
+	f.mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
 	if (!f.mlx)
 		return (ft_errorinit(f.mlx));
 	f.img = mlx_new_image(f.mlx, WIDTH, HEIGHT);
@@ -107,7 +124,6 @@ int	main(void)
 		return (ft_errorinit(f.mlx));
 	f.pixels = (uint32_t *) f.img->pixels;
 	ft_draw(&f);
-	// fractal..
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
 		return (ft_errorimg(f.mlx, f.img));
 	mlx_scroll_hook(f.mlx, &ft_scrollhook, &f);

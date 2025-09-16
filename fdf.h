@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 02:41:17 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 05:03:45 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@
 # define WIDTH 1280
 # define HEIGHT 800
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_bresenham
 {
 	int			dx;
 	int			dy;
-	int			steps;
 	int			sx;
 	int			sy;
 	int			err;
@@ -43,7 +48,7 @@ typedef struct s_fdf
 	double		b;
 	double		c;
 	double		d;
-	t_bresenham	bresenham;
+	t_bresenham	bre;
 }	t_fdf;
 
 void	ft_draw(t_fdf	*s);
