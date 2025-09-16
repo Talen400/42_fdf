@@ -11,7 +11,7 @@ RESET = \033[0m
 # Configuration
 NAME := fdf
 CC := cc
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
 
 # Directories
 SRC_DIR := ./srcs

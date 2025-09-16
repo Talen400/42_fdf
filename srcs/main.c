@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 14:23:47 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 17:53:13 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ void	ft_count(t_fdf *f, int fd)
 	char	**values;
 	int		x;
 
-	line = get_next_line(fd);
-	while (line != NULL)
+	while (1)
 	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
 		values = ft_split(line, ' ');
 		if (f->map.height == 0)
 		{
@@ -56,7 +58,7 @@ void	ft_altitudes(t_fdf *f)
 
 	f->map.altitudes = (int **) malloc(sizeof(int *) * f->map.height);
 	i = 0;
-	while (++i < f->map.height)
+	while (i < f->map.height)
 	{
 		f->map.altitudes[i] = (int *) malloc(sizeof(int) * f->map.width);
 		i++;
@@ -71,9 +73,11 @@ void	ft_reading(t_fdf *f, int fd)
 	char	**values;
 
 	y = 0;
-	line = get_next_line(fd);
-	while (line != NULL)
+	while (1)
 	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
 		values = ft_split(line, ' ');
 		x = 0;
 		while (values[x] && x < f->map.width)
@@ -104,24 +108,37 @@ void	ft_read(t_fdf *f, char *filename)
 	close(fd);
 }
 
-void	ft_right(t_fdf *f, t_vec2 next2d, int x, int y)
+void	ft_top(t_fdf *f, t_vec2 *point2d, int x, int y)
 {
+	t_vec2	next2d;
 	if (x < f->map.width - 1)
 	{
 		next2d = ft_iso((t_vec3){x + 1, y, f->map.altitudes[y][x + 1]});
 		next2d.x = next2d.x * f->scale + f->offset_x;
 		next2d.y = next2d.y * f->scale + f->offset_y;
-		ft_bresenham(f, point2d, );
+		ft_bresenham(f, *point2d, next2d);
+	}
+}
+
+void	ft_bottom(t_fdf *f, t_vec2 *point2d, int x, int y)
+{
+	t_vec2	next2d;
+
+	if (y < f->map.height - 1)
+	{
+		next2d = ft_iso((t_vec3){x, y + 1, f->map.altitudes[y + 1][x]});
+		next2d.x = next2d.x * f->scale + f->offset_x;
+		next2d.y = next2d.y * f->scale + f->offset_y;
+		ft_bresenham(f, *point2d, next2d);
 	}
 }
 
 static void	ft_map(t_fdf *f)
 {
-	int	x;
-	int	y;
+	int 	x;
+	int		y;
 	t_vec3	point3d;
 	t_vec2	point2d;
-	t_vec2	next2d;
 
 	y = 0;
 	while (y < f->map.height)
@@ -136,10 +153,11 @@ static void	ft_map(t_fdf *f)
 			point2d = ft_iso(point3d);
 			point2d.x = point2d.x * f->scale + f->offset_x;
 			point2d.y = point2d.y * f->scale + f->offset_y;
-			ft_right(f, next2d, x, y);
-			ft_left(f, next2d, x, y);
+			ft_top(f, &point2d, x, y);
+			ft_bottom(f, &point2d, x, y);
 			x++;
 		}
+		y++;
 	}
 }
 
@@ -147,7 +165,7 @@ void	ft_draw(t_fdf *f)
 {
 	ft_clearimg(f);
 	ft_axes(f);
-	ft_draw(f);
+	ft_map(f);
 }
 
 static int	ft_init(t_fdf *f)
