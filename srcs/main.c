@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 08:07:38 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 09:30:44 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	ft_axes(t_fdf *s)
 
 	x = -1;
 	while (++x < WIDTH)
-		s->pixels[(HEIGHT / 2) * WIDTH + x] = 0x404040FF;
+		s->pixels[(HEIGHT / 2) * WIDTH + x] = 0xFEFEFE;
 	y = -1;
 	while (++y < HEIGHT)
-		s->pixels[y * WIDTH + (WIDTH / 2)] = 0x404040FF;
+		s->pixels[y * WIDTH + (WIDTH / 2)] = 0xFEFEFE;
 }
 
 void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
@@ -53,7 +53,7 @@ void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
 	ft_bresenham_init(&f->bre, a, b);
 	while (1)
 	{
-		ft_put(f->pixels, a.x, a.y, 0x404040FF);
+		ft_put(f->pixels, a.x, a.y, 0xFEFEFE);
 		if (a.x == b.x && a.y == b.y)
 			break;
 		f->bre.e2 = 2 * f->bre.err;

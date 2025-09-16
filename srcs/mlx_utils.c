@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 02:41:00 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/15 23:30:21 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 10:18:21 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	ft_errorimg(mlx_t *mlx, mlx_image_t *img)
 	return (1);
 }
 
-void	ft_clearimg(t_fdf *s)
+void	ft_clearimg(t_fdf *f)
 {
-	ft_memset(s->img->pixels, 255, s->img->width * s->img->height * sizeof(uint32_t));
+	ft_memset(f->img->pixels, 0xF8F9FA, f->img->width * f->img->height 
+			*sizeof(uint32_t));
 }
