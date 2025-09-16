@@ -74,6 +74,6 @@ fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@echo "$(RED)Full clean completed!$(RESET)"
 
-re: clean all
+re: fclean all
 
 .PHONY: all clean fclean re
