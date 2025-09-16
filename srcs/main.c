@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 00:23:00 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/16 03:29:18 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,37 @@ void	ft_axes(t_fdf *s)
 		s->pixels[y * WIDTH + (WIDTH / 2)] = 0x404040FF;
 }
 
-void	ft_dda(t_fdf *f, int x0, int y0, int x1, int y1)
+void	ft_bresenham(t_fdf *f, int x0, int y0, int x1, int y1)
 {
-	t_dda	dda;
-	int		i;
+	t_bresenham	bre;
 
-	dda = f->dda;
-	dda.x_diff = x1 - x0;
-	dda.y_diff = y1 - y0;
-	dda.steps = abs(dda.x_diff);
-	if (abs(dda.y_diff) > dda.steps)
-		dda.steps = abs(dda.y_diff);
-	if (dda.steps == 0)
+	bre.dx = abs(x1 - x0);
+	bre.dy = abs(y1 - y0);
+	if (x0 < x1)
+		bre.sx = 1;
+	else
+		bre.sx = -1;
+	if (y0 < y1)
+		bre.sy = 1;
+	else
+		bre.sy = -1;
+	bre.err = bre.dx - bre.dy;
+	while (1)
 	{
 		ft_put(f->pixels, x0, y0, 0x404040FF);
-		return;
-	}
-	dda.x_inc = dda.x_diff / (float ) dda.steps;
-	dda.y_inc = dda.y_diff / (float ) dda.steps;
-	i = 0;
-	while (i <= dda.steps)
-	{
-		ft_put(f->pixels, (int )roundf(x0), (int )roundf(y0), 0x404040FF);
-		x0 += dda.x_inc;
-		y0 += dda.y_inc;
-		i++;
+		if (x0 == x1 && y0 == y1)
+			break;
+		bre.e2 = 2 * bre.err;
+		if (bre.e2 > -bre.dy)
+		{
+			bre.err -= bre.dy;
+			x0 += bre.sx;
+		}
+		if (bre.e2 < bre.dx)
+		{
+			bre.err += bre.dx;
+			y0 += bre.sy;
+		}
 	}
 }
 
@@ -73,13 +79,13 @@ void	ft_draw(t_fdf	*f)
 	x = -1;
 	math_x = (x - (WIDTH / 2)) * 3 / 100.0;
 	math_y = f->a * sin(f->b * math_x + f->c) + f->d;
-	y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
+	prev_y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
 	while (++x < WIDTH)
 	{
 		math_x = (x - (WIDTH / 2)) * 3 / 100.0;
 		math_y = f->a * sin(f->b * math_x + f->c) + f->d;
 		y = (HEIGHT / 2) - (int)(math_y * WIDTH / 6);
-		ft_dda(f, x - 1, prev_y, x, y);
+		ft_bresenham(f, x - 1, prev_y, x, y);
 		prev_y = y;
 	}
 }
