@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 02:37:34 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 19:25:09 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,6 @@ uint32_t	ft_altitude_to_color(int altitude, int min_alt, int max_alt)
 		return (0xFFFFFFFF);
 	normalized = (float) (altitude - min_alt / (max_alt - min_alt));
 	return (ft_interpolate(low_color, high_color, normalized));
-}
-
-int			ft_hex_to_int(char *hex)
-{
-	int	value;
-	int	i;
-
-	value = 0;
-	if (hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X'))
-		i = 2;
-	else
-		i = 0;
-	while (hex[i])
-	{
-		value *= 16;
-		if (hex[i] >= '0' && hex[i] <= '9')
-			value += hex[i] - '0';
-		else if (hex[i] >= 'a' && hex[i] <= 'f')
-			value += hex[i] - 'a' + 10;
-		else if (hex[i] >= 'A' && hex[i] <= 'F')
-			value += hex[i] - 'A' + 10;
-		i++;
-	}
-	return (value);
 }
 
 void	ft_right(t_fdf *f, t_vec2 *point2d, int x, int y)
@@ -126,9 +102,28 @@ void	ft_freemap(t_fdf *f)
 	while (i < f->map.height)
 	{
 		free(f->map.altitudes[i]);
+		free(f->map.colors[i]);
 		i++;
 	}
 	free(f->map.altitudes);
+	free(f->map.colors);
+}
+
+#include <stdio.h>
+
+void	ft_print_map(t_fdf *f)
+{
+	int	x, y;
+
+	printf("== Mapa de Altitudes e Cores ==\n");
+	for (y = 0; y < f->map.height; y++)
+	{
+		for (x = 0; x < f->map.width; x++)
+		{
+			printf("[%3d, %#08x] ", f->map.altitudes[y][x], f->map.colors[y][x]);
+		}
+		printf("\n");
+	}
 }
 
 int	main(int argc, char *argv[])
@@ -141,6 +136,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	ft_read(&f, argv[1]);
 	ft_auto_calibrate(&f);
+	ft_print_map(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
 		return (ft_errorimg(f.mlx, f.img));

@@ -6,11 +6,18 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 02:41:00 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 00:04:26 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 19:49:34 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
+
+static inline void	ft_put(uint32_t *pixels, int x, int y,
+		uint32_t color)
+{
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+		pixels[y * WIDTH + x] = color;
+}
 
 int	ft_errorinit(mlx_t *mlx)
 {
@@ -30,6 +37,18 @@ int	ft_errorimg(mlx_t *mlx, mlx_image_t *img)
 
 void	ft_clearimg(t_fdf *f)
 {
-	ft_memset(f->img->pixels, BACK, f->img->width * f->img->height
-		*sizeof(uint32_t));
+	int	x;
+	int	y;
+	
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			ft_put(f->pixels, x, y, 0x00000000);
+			x++;
+		}
+		y++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 02:39:11 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 19:57:17 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,25 @@ static void	ft_alloc(t_fdf	*f)
 	int	i;
 
 	f->map.altitudes = (int **) malloc(sizeof(int *) * f->map.height);
+	if (!f->map.altitudes)
+		return ;
 	i = 0;
 	while (i < f->map.height)
 	{
 		f->map.altitudes[i] = (int *) malloc(sizeof(int) * f->map.width);
+		if (!f->map.altitudes[i])
+			return ;
 		i++;
 	}
 	f->map.colors = (int **) malloc(sizeof(int *) * f->map.height);
+	if (!f->map.colors)
+		return ;
 	i = 0;
 	while (i < f->map.height)
 	{
 		f->map.colors[i] = (int *) malloc(sizeof(int) * f->map.width);
+		if (!f->map.colors[i])
+			return ;
 		i++;
 	}
 }
@@ -84,10 +92,11 @@ static void	ft_process_cell(t_fdf *f, char *cell_str, int x, int y)
 	if (parts[1])
 	{
 		f->map.colors[y][x] = ft_hex_to_int(parts[1]);
+		f->map.colors[y][x] = (f->map.colors[y][x] << 8) | 0xFF;
 	}
 	else
 	{
-		f->map.colors[x][y] = -1;
+		f->map.colors[y][x] = -1;
 	}
 	ft_free_split(parts);
 }

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 02:41:46 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:59:03 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <math.h>
 # include <fcntl.h>
 
-# define WIDTH 1280
+# define WIDTH 1200
 # define HEIGHT 800
 # define BACK 190
 
@@ -92,8 +92,9 @@ typedef struct s_color
 	uint8_t	a;
 }	t_color;
 
-
+// hex parse
 int			ft_hex_to_int(char *hex);
+
 // read
 void	ft_read(t_fdf *f, char *filename);
 
