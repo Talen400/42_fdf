@@ -6,130 +6,69 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 17:53:13 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 02:37:34 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	ft_freesplit(char **split)
+uint32_t	ft_altitude_to_color(int altitude, int min_alt, int max_alt)
 {
+	float		normalized;
+	uint32_t	low_color;
+	uint32_t	high_color;
+
+	low_color = 0x0066FFFF;
+	high_color = 0xFF3300FF;
+	if (max_alt == min_alt)
+		return (0xFFFFFFFF);
+	normalized = (float) (altitude - min_alt / (max_alt - min_alt));
+	return (ft_interpolate(low_color, high_color, normalized));
+}
+
+int			ft_hex_to_int(char *hex)
+{
+	int	value;
 	int	i;
 
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
+	value = 0;
+	if (hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X'))
+		i = 2;
+	else
+		i = 0;
+	while (hex[i])
 	{
-		free(split[i]);
+		value *= 16;
+		if (hex[i] >= '0' && hex[i] <= '9')
+			value += hex[i] - '0';
+		else if (hex[i] >= 'a' && hex[i] <= 'f')
+			value += hex[i] - 'a' + 10;
+		else if (hex[i] >= 'A' && hex[i] <= 'F')
+			value += hex[i] - 'A' + 10;
 		i++;
 	}
-	free(split);
+	return (value);
 }
 
-void	ft_count(t_fdf *f, int fd)
+void	ft_right(t_fdf *f, t_vec2 *point2d, int x, int y)
 {
-	char	*line;
-	char	**values;
-	int		x;
+	t_vec2	right;
 
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		values = ft_split(line, ' ');
-		if (f->map.height == 0)
-		{
-			x = 0;
-			while (values[x])
-				x++;
-			f->map.width = x;
-		}
-		f->map.height++;
-		free(line);
-		ft_freesplit(values);
-	}
-}
-
-void	ft_altitudes(t_fdf *f)
-{
-	int	i;
-
-	f->map.altitudes = (int **) malloc(sizeof(int *) * f->map.height);
-	i = 0;
-	while (i < f->map.height)
-	{
-		f->map.altitudes[i] = (int *) malloc(sizeof(int) * f->map.width);
-		i++;
-	}
-}
-
-void	ft_reading(t_fdf *f, int fd)
-{
-	int		x;
-	int		y;
-	char	*line;
-	char	**values;
-
-	y = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		values = ft_split(line, ' ');
-		x = 0;
-		while (values[x] && x < f->map.width)
-		{
-			f->map.altitudes[y][x] = ft_atoi(values[x]);
-			x++;
-		}
-		y++;
-		free(line);
-		ft_freesplit(values);
-	}
-}
-
-void	ft_read(t_fdf *f, char *filename)
-{
-	int		fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return ;
-	f->map.height = 0;
-	f->map.width = 0;
-	ft_count(f, fd);
-	close(fd);
-	ft_altitudes(f);
-	fd = open(filename, O_RDONLY);
-	ft_reading(f, fd);
-	close(fd);
-}
-
-void	ft_top(t_fdf *f, t_vec2 *point2d, int x, int y)
-{
-	t_vec2	next2d;
 	if (x < f->map.width - 1)
 	{
-		next2d = ft_iso((t_vec3){x + 1, y, f->map.altitudes[y][x + 1]});
-		next2d.x = next2d.x * f->scale + f->offset_x;
-		next2d.y = next2d.y * f->scale + f->offset_y;
-		ft_bresenham(f, *point2d, next2d);
+		right = ft_get2d(f, x + 1, y);
+		ft_bresenham(f, *point2d, right, f->map.colors[y][x]);
 	}
 }
 
-void	ft_bottom(t_fdf *f, t_vec2 *point2d, int x, int y)
+void	ft_down(t_fdf *f, t_vec2 *point2d, int x, int y)
 {
-	t_vec2	next2d;
+	t_vec2	down;
 
 	if (y < f->map.height - 1)
 	{
-		next2d = ft_iso((t_vec3){x, y + 1, f->map.altitudes[y + 1][x]});
-		next2d.x = next2d.x * f->scale + f->offset_x;
-		next2d.y = next2d.y * f->scale + f->offset_y;
-		ft_bresenham(f, *point2d, next2d);
+		down = ft_get2d(f, x, y + 1);
+		ft_bresenham(f, *point2d, down, f->map.colors[y][x]);
 	}
 }
 
@@ -137,7 +76,6 @@ static void	ft_map(t_fdf *f)
 {
 	int 	x;
 	int		y;
-	t_vec3	point3d;
 	t_vec2	point2d;
 
 	y = 0;
@@ -146,15 +84,9 @@ static void	ft_map(t_fdf *f)
 		x = 0;
 		while (x < f->map.width)
 		{
-			point3d = (t_vec3){x, y, f->map.altitudes[y][x]};
-			ft_rotatex(&point3d, f->angle_x);
-			ft_rotatey(&point3d, f->angle_y);
-			ft_rotatez(&point3d, f->angle_z);
-			point2d = ft_iso(point3d);
-			point2d.x = point2d.x * f->scale + f->offset_x;
-			point2d.y = point2d.y * f->scale + f->offset_y;
-			ft_top(f, &point2d, x, y);
-			ft_bottom(f, &point2d, x, y);
+			point2d = ft_get2d(f, x, y);
+			ft_right(f, &point2d, x, y);
+			ft_down(f, &point2d, x, y);
 			x++;
 		}
 		y++;
@@ -164,7 +96,6 @@ static void	ft_map(t_fdf *f)
 void	ft_draw(t_fdf *f)
 {
 	ft_clearimg(f);
-	ft_axes(f);
 	ft_map(f);
 }
 
@@ -209,13 +140,12 @@ int	main(int argc, char *argv[])
 	if (ft_init(&f) != 0)
 		return (1);
 	ft_read(&f, argv[1]);
+	ft_auto_calibrate(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
 		return (ft_errorimg(f.mlx, f.img));
 	mlx_scroll_hook(f.mlx, &ft_scrollhook, &f);
 	mlx_key_hook(f.mlx, &ft_keyhook, &f);
-	ft_printf("y = A * sin(B * x + C) + D\n");
-	ft_printf("1-4: modo A,B,D,D | Scroll: alterar | R: reset\n", 1);
 	mlx_loop(f.mlx);
 	mlx_terminate(f.mlx);
 	ft_freemap(&f);

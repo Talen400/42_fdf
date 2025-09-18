@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bresenham.c                                        :+:      :+:    :+:   */
+/*   ft_bresenham.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:22:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 11:37:46 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 02:44:35 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline void	ft_put(uint32_t *pixels, int x, int y,
 		pixels[y * WIDTH + x] = color;
 }
 
-void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
+static void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
 {
 	bre->dx = abs(b.x - a.x);
 	bre->dy = abs(b.y - a.y);
@@ -35,12 +35,12 @@ void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
 	bre->e2 = 0;
 }
 
-void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
+void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b, uint32_t color)
 {
 	ft_bresenham_init(&f->bre, a, b);
 	while (1)
 	{
-		ft_put(f->pixels, a.x, a.y, 0xFEFEFE);
+		ft_put(f->pixels, a.x, a.y, color);
 		if (a.x == b.x && a.y == b.y)
 			break ;
 		f->bre.e2 = 2 * f->bre.err;

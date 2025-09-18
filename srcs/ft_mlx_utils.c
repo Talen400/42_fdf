@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   ft_mlx_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 02:41:00 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 12:34:22 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 00:04:26 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ int	ft_errorimg(mlx_t *mlx, mlx_image_t *img)
 
 void	ft_clearimg(t_fdf *f)
 {
-	ft_memset(f->img->pixels, 0xF8F9FA, f->img->width * f->img->height 
-			*sizeof(uint32_t));
-}
-
-void	ft_axes(t_fdf *s)
-{
-	int	x;
-	int	y;
-
-	x = -1;
-	while (++x < WIDTH)
-		s->pixels[(HEIGHT / 2) * WIDTH + x] = 0xFEFEFE;
-	y = -1;
-	while (++y < HEIGHT)
-		s->pixels[y * WIDTH + (WIDTH / 2)] = 0xFEFEFE;
+	ft_memset(f->img->pixels, BACK, f->img->width * f->img->height
+		*sizeof(uint32_t));
 }

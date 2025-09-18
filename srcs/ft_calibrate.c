@@ -1,0 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calibrate.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/17 23:50:46 by tlavared          #+#    #+#             */
+/*   Updated: 2025/09/17 23:52:05 by tlavared         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../fdf.h"
+
+static void	ft_calculate_min_max(t_fdf *f)
+{
+	int	x;
+	int	y;
+
+	f->map.min_alt = f->map.altitudes[0][0];
+	f->map.max_alt = f->map.altitudes[0][0];
+	y = 0;
+	while (y < f->map.height)
+	{
+		x = 0;
+		if (f->map.altitudes[y][x] < f->map.min_alt)
+			f->map.min_alt = f->map.altitudes[y][x];
+		if (f->map.altitudes[y][x] > f->map.max_alt)
+			f->map.max_alt = f->map.altitudes[y][x];
+		y++;
+	}
+}
+
+void	ft_auto_calibrate(t_fdf *f)
+{
+	float	margin;
+	int		max_dimension;
+	int		z_range;
+
+	ft_calculate_min_max(f);
+	max_dimension = fmax(f->map.width, f->map.height);
+	margin = 0.1f;
+	z_range = f->map.max_alt - f->map.min_alt;
+	f->scale = fmaxf(
+			(WIDTH * (1 - margin) / (max_dimension * 2.0f)),
+			(HEIGHT * (1 - margin) / (max_dimension * 1.5f + z_range * 0.5f)));
+	if (f->scale < 2.0f)
+		f->scale = 2.0f;
+	ft_printf("Auto-calibrated: scale=%.2f, z_scale=%.2f\n", f->scale,
+		f->z_scale);
+}

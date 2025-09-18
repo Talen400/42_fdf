@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboards.c                                        :+:      :+:    :+:   */
+/*   ft_keyboard.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/16 12:06:53 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 00:03:03 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
+
+static void	ft_keyhook2(mlx_key_data_t *k, t_fdf *f)
+{
+	if (k->key == MLX_KEY_LEFT)
+		f->angle_y -= 0.1f;
+	else if (k->key == MLX_KEY_RIGHT)
+		f->angle_y += 0.1f;
+	else if (k->key == MLX_KEY_UP)
+		f->angle_x -= 0.1f;
+	else if (k->key == MLX_KEY_DOWN)
+		f->angle_x += 0.1f;
+	else if (k->key == MLX_KEY_Q)
+		f->angle_z -= 0.1f;
+	else if (k->key == MLX_KEY_E)
+		f->angle_z += 0.1f;
+	else if (k->key == MLX_KEY_R)
+	{
+		f->angle_x = 0;
+		f->angle_y = 0;
+		f->angle_z = 0;
+	}
+}
 
 void	ft_keyhook(mlx_key_data_t k, void *param)
 {
@@ -19,24 +41,10 @@ void	ft_keyhook(mlx_key_data_t k, void *param)
 	f = (t_fdf *)param;
 	if (k.action != MLX_PRESS && k.action != MLX_REPEAT)
 		return ;
-	if (k.key == MLX_KEY_LEFT)
-		f->angle_y -= 0.1f;
-	else if (k.key == MLX_KEY_RIGHT)
-		f->angle_y += 0.1f;
-	else if (k.key == MLX_KEY_UP)
-		f->angle_x -= 0.1f;
-	else if (k.key == MLX_KEY_DOWN)
-		f->angle_x += 0.1f;
-	else if (k.key == MLX_KEY_Q)
-		f->angle_z -= 0.1f;
-	else if (k.key == MLX_KEY_E)
-		f->angle_z += 0.1f;
-	else if (k.key == MLX_KEY_R)
-	{
-		f->angle_x = 0;
-		f->angle_y = 0;
-		f->angle_z = 0;
-	}
+	else if (k.key == MLX_KEY_X)
+		mlx_close_window(f->mlx);
+	else
+		ft_keyhook2(&k, f);
 	ft_draw(f);
 }
 
