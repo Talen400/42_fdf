@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:50:46 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/17 23:52:05 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 23:09:28 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	ft_auto_calibrate(t_fdf *f)
 	int		max_dimension;
 	int		z_range;
 
+	f->center_x = (f->map.width - 1) / 2.0f;
+	f->center_y = (f->map.height - 1) / 2.0f;
+	f->center_z = (f->map.min_alt + f->map.max_alt) / 2.0f;
 	ft_calculate_min_max(f);
 	max_dimension = fmax(f->map.width, f->map.height);
 	margin = 0.1f;

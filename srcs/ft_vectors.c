@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 01:55:07 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/18 23:48:54 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_vec2	ft_iso(t_vec3 p)
 {
 	t_vec2	result;
 
-	result.x = (int )((p.x - p.y) * cos(0.523599));
-	result.y = (int )((p.x + p.y) * sin(0.523599) - p.z);
+	result.x = (int )((p.x - p.y) * cosf(0.523599));
+	result.y = (int )((p.x + p.y) * sinf(0.523599) - p.z);
 	return (result);
 }
 
@@ -59,12 +59,9 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 	t_vec3	point3d;
 	t_vec2	point2d;
 
-	f->center_x = (f->map.width - 1) / 2.0f;
-	f->center_y = (f->map.height - 1) / 2.0f;
-	f->center_z = (f->map.min_alt + f->map.max_alt) / 2.0f;
 	point3d.x = x - f->center_x;
 	point3d.y = y - f->center_y;
-	point3d.z = f->map.altitudes[y][x] - f->center_z;
+	point3d.z = (f->map.altitudes[y][x] - f->center_z);
 	ft_rotatex(&point3d, f->angle_x);
 	ft_rotatey(&point3d, f->angle_y);
 	ft_rotatez(&point3d, f->angle_z);
