@@ -6,11 +6,51 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 19:06:51 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:44:43 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
+
+static void	ft_keyhook5(mlx_key_data_t *k, t_fdf *f)
+{
+	if (k->key == MLX_KEY_5)
+	{
+		f->angle_x = -M_PI / 6;
+		f->angle_y = M_PI / 4;
+		f->angle_z = 0;
+	}
+}
+
+static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
+{
+	if (k->key == MLX_KEY_2)
+	{
+		f->angle_x = -M_PI / 2;
+		f->angle_y = 0.0f;
+		f->angle_z = 0.0f;
+	}
+	else if (k->key == MLX_KEY_2)
+	{
+		f->angle_x = -M_PI / 2; 		
+		f->angle_y = 0.0f;
+		f->angle_z = 0.0f;
+	}
+	else if (k->key == MLX_KEY_3)	
+	{
+		f->angle_x = 0.0f;
+		f->angle_y = M_PI / 2;		
+		f->angle_z = 0.0f;
+	}
+	else if (k->key == MLX_KEY_4)	
+	{
+		f->angle_x = -M_PI / 4;
+		f->angle_y = 0.0f;
+		f->angle_z = M_PI / 4;
+	}
+	else
+		ft_keyhook5(k, f);
+}
 
 static void	ft_keyhook3(mlx_key_data_t *k, t_fdf *f)
 {
@@ -26,6 +66,14 @@ static void	ft_keyhook3(mlx_key_data_t *k, t_fdf *f)
 		f->scale += ZOOM;
 	else if (k->key == MLX_KEY_K)
 		f->scale -= ZOOM;
+	else if (k->key == MLX_KEY_1)
+	{
+		f->angle_x = 0.0f;
+		f->angle_y = 0.0f;
+		f->angle_z = 0.0f;
+	}
+	else
+		ft_keyhook4(k, f);
 }
 
 static void	ft_keyhook2(mlx_key_data_t *k, t_fdf *f)
@@ -66,9 +114,3 @@ void	ft_keyhook(mlx_key_data_t k, void *param)
 	ft_draw(f);
 }
 
-void	ft_scrollhook(double xd, double yd, void *param)
-{
-	(void ) yd;
-	(void ) xd;
-	(void ) param;
-}

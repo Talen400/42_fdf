@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 23:04:18 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:35:27 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(int argc, char *argv[])
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
 		return (ft_errorimg(f.mlx, f.img));
-	mlx_scroll_hook(f.mlx, &ft_scrollhook, &f);
 	mlx_key_hook(f.mlx, &ft_keyhook, &f);
 	mlx_loop(f.mlx);
 	mlx_terminate(f.mlx);

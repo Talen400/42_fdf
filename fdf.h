@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 19:04:01 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:28:45 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <math.h>
 # include <fcntl.h>
 
+# define M_PI 3.14159265358979323846
 # define WIDTH 1200
 # define HEIGHT 800
 # define BACK 190
