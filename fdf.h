@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 18:59:03 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:11:56 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define WIDTH 1200
 # define HEIGHT 800
 # define BACK 190
+# define MARGIN 0.15f
 
 typedef struct s_map
 {
@@ -41,8 +42,8 @@ typedef struct s_vec3
 
 typedef struct s_vec2
 {
-	int	x;
-	int	y;
+	float	x;
+	float	y;
 }	t_vec2;
 
 typedef struct s_draw
@@ -74,7 +75,6 @@ typedef struct s_fdf
 	float		angle_y;
 	float		angle_z;
 	float		scale;
-	float		z_scale;
 	int			offset_x;
 	int			offset_y;
 	float		center_x;
@@ -92,6 +92,9 @@ typedef struct s_color
 	uint8_t	a;
 }	t_color;
 
+// utils of reads
+void	ft_free_split(char **split);
+
 // hex parse
 int			ft_hex_to_int(char *hex);
 
@@ -99,7 +102,7 @@ int			ft_hex_to_int(char *hex);
 void	ft_read(t_fdf *f, char *filename);
 
 // main of draw
-void	ft_draw(t_fdf	*s);
+void	ft_draw(t_fdf *f);
 
 // MLX42
 void	ft_keyhook(mlx_key_data_t keydata, void *param);
@@ -112,10 +115,6 @@ void	ft_scrollhook(double xd, double yd, void *param);
 void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b, uint32_t color);
 
 // algebra functions
-t_vec2	ft_iso(t_vec3 p);
-void	ft_rotatex(t_vec3 *p, float angle);
-void	ft_rotatey(t_vec3 *p, float angle);
-void	ft_rotatez(t_vec3 *p, float angle);
 t_vec2	ft_get2d(t_fdf *f, int x, int y);
 
 // auto-calibrate

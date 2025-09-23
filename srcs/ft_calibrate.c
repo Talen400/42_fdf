@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:50:46 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 23:09:28 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:19:09 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ void	ft_auto_calibrate(t_fdf *f)
 	f->center_z = (f->map.min_alt + f->map.max_alt) / 2.0f;
 	ft_calculate_min_max(f);
 	max_dimension = fmax(f->map.width, f->map.height);
-	margin = 0.1f;
+	margin = MARGIN;
 	z_range = f->map.max_alt - f->map.min_alt;
 	f->scale = fmaxf(
 			(WIDTH * (1 - margin) / (max_dimension * 2.0f)),
 			(HEIGHT * (1 - margin) / (max_dimension * 1.5f + z_range * 0.5f)));
 	if (f->scale < 2.0f)
 		f->scale = 2.0f;
-	ft_printf("Auto-calibrated: scale=%.2f, z_scale=%.2f\n", f->scale,
-		f->z_scale);
+	ft_printf("Auto-calibrated: scale=%.2f\n", f->scale);
 }

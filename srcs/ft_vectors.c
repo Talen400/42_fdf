@@ -6,22 +6,22 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 23:48:54 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:48:02 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-t_vec2	ft_iso(t_vec3 p)
+static t_vec2	ft_iso(t_vec3 p)
 {
 	t_vec2	result;
 
-	result.x = (int )((p.x - p.y) * cosf(0.523599));
-	result.y = (int )((p.x + p.y) * sinf(0.523599) - p.z);
+	result.x = (p.x - p.y) * cosf(0.523599);
+	result.y = (p.x + p.y) * sinf(0.523599) - p.z;
 	return (result);
 }
 
-void	ft_rotatex(t_vec3 *p, float angle)
+static void	ft_rotatex(t_vec3 *p, float angle)
 {
 	float	y;
 	float	z;
@@ -32,7 +32,7 @@ void	ft_rotatex(t_vec3 *p, float angle)
 	p->z = y * sinf(angle) + z * cosf(angle);
 }
 
-void	ft_rotatey(t_vec3 *p, float angle)
+static void	ft_rotatey(t_vec3 *p, float angle)
 {
 	float	x;
 	float	z;
@@ -43,7 +43,7 @@ void	ft_rotatey(t_vec3 *p, float angle)
 	p->z = -x * sinf(angle) + z * cosf(angle);
 }
 
-void	ft_rotatez(t_vec3 *p, float angle)
+static void	ft_rotatez(t_vec3 *p, float angle)
 {
 	float	x;
 	float	y;
@@ -58,6 +58,8 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 {
 	t_vec3	point3d;
 	t_vec2	point2d;
+	float	temp_x;
+	float	temp_y;
 
 	point3d.x = x - f->center_x;
 	point3d.y = y - f->center_y;
@@ -66,7 +68,9 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 	ft_rotatey(&point3d, f->angle_y);
 	ft_rotatez(&point3d, f->angle_z);
 	point2d = ft_iso(point3d);
-	point2d.x = point2d.x * f->scale + f->offset_x;
-	point2d.y = point2d.y * f->scale + f->offset_y;
+	temp_x = point2d.x * f->scale + f->offset_x;
+	temp_y = point2d.y * f->scale + f->offset_y;
+	point2d.x = (int ) temp_x;
+	point2d.y = (int ) temp_y;
 	return (point2d);
 }

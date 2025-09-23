@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:22:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 19:43:23 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:29:04 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static inline void	ft_put(uint32_t *pixels, int x, int y,
 
 static void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
 {
-	bre->dx = abs(b.x - a.x);
-	bre->dy = abs(b.y - a.y);
+	bre->dx = fabs(b.x - a.x);
+	bre->dy = fabs(b.y - a.y);
 	if (a.x < b.x)
 		bre->sx = 1;
 	else

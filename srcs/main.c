@@ -6,91 +6,19 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/18 23:54:23 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:04:18 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-/*
-uint32_t	ft_altitude_to_color(int altitude, int min_alt, int max_alt)
-{
-	float		normalized;
-	uint32_t	low_color;
-	uint32_t	high_color;
-
-	low_color = 0x0066FFFF;
-	high_color = 0xFF3300FF;
-	if (max_alt == min_alt)
-		return (0xFFFFFFFF);
-	normalized = (float) ((altitude - min_alt) / (max_alt - min_alt));
-	return (ft_interpolate(low_color, high_color, normalized));
-}
-*/
 #include <stdio.h>
-
-void	ft_right(t_fdf *f, t_vec2 point2d, int x, int y)
-{
-	t_vec2	right;
-
-	if (x < f->map.width - 1)
-	{
-		right = ft_get2d(f, x + 1, y);
-		if (point2d.x != right.x || point2d.y != right.y)
-		{
-			ft_bresenham(f, point2d, right, f->map.colors[y][x]);
-		}
-	}
-}
-
-void	ft_down(t_fdf *f, t_vec2 point2d, int x, int y)
-{
-	t_vec2	down;
-
-	if (y < f->map.height - 1)
-	{
-		down = ft_get2d(f, x, y + 1);
-		if (point2d.x != down.x || point2d.y != down.y)
-		{
-			ft_bresenham(f, point2d, down, f->map.colors[y][x]);
-		}
-	}
-}
-
-static void	ft_map(t_fdf *f)
-{
-	int 	x;
-	int		y;
-	t_vec2	point2d;
-
-	y = 0;
-	while (y < f->map.height)
-	{
-		x = 0;
-		while (x < f->map.width)
-		{
-			point2d = ft_get2d(f, x, y);
-			ft_right(f, point2d, x, y);
-			ft_down(f, point2d, x, y);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	ft_draw(t_fdf *f)
-{
-	ft_clearimg(f);
-	ft_map(f);
-}
 
 static int	ft_init(t_fdf *f)
 {
-	
 	f->angle_x = 0.0f;
 	f->angle_y = 0.0f;
 	f->angle_z = 0.0f;
 	f->scale = 20.0f;
-	f->z_scale = 1.0f;
 	f->offset_x = WIDTH / 2;
 	f->offset_y = HEIGHT / 2;
 	f->mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
@@ -118,18 +46,18 @@ void	ft_freemap(t_fdf *f)
 	free(f->map.colors);
 }
 
-#include <stdio.h>
-
 void	ft_print_map(t_fdf *f)
 {
-	int	x, y;
+	int	x;
+	int	y;
 
 	printf("== Mapa de Altitudes e Cores ==\n");
 	for (y = 0; y < f->map.height; y++)
 	{
 		for (x = 0; x < f->map.width; x++)
 		{
-			printf("[%3d, %#08x] ", f->map.altitudes[y][x], f->map.colors[y][x]);
+			//printf("[%3d, %#08x] ", f->map.altitudes[y][x], f->map.colors[y][x]);
+			printf("%3d", f->map.altitudes[y][x]);
 		}
 		printf("\n");
 	}
