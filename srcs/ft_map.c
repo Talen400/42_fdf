@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:44:09 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 22:48:48 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:52:27 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_right(t_fdf *f, t_vec2 point2d, int x, int y)
 		right = ft_get2d(f, x + 1, y);
 		if (point2d.x != right.x || point2d.y != right.y)
 		{
-			ft_bresenham(f, point2d, right, f->map.colors[y][x]);
+			ft_bresenham(f, point2d, right);
 		}
 	}
 }
@@ -35,7 +35,7 @@ static void	ft_down(t_fdf *f, t_vec2 point2d, int x, int y)
 		down = ft_get2d(f, x, y + 1);
 		if (point2d.x != down.x || point2d.y != down.y)
 		{
-			ft_bresenham(f, point2d, down, f->map.colors[y][x]);
+			ft_bresenham(f, point2d, down);
 		}
 	}
 }

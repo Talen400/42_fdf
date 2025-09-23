@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 22:41:35 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:56:48 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static void	ft_alloc(t_fdf	*f)
 
 static void	ft_process_cell(t_fdf *f, char *cell_str, int x, int y)
 {
-	char	**parts;
+	char		**parts;
+	uint32_t	rgb;
 
 	parts = ft_split(cell_str, ',');
 	if (!parts)
@@ -76,12 +77,12 @@ static void	ft_process_cell(t_fdf *f, char *cell_str, int x, int y)
 	f->map.altitudes[y][x] = ft_atoi(parts[0]);
 	if (parts[1])
 	{
-		f->map.colors[y][x] = ft_hex_to_int(parts[1]);
-		f->map.colors[y][x] = (f->map.colors[y][x] << 8) | 0xFF;
+		rgb = ft_hex_to_int(parts[1]);
+		f->map.colors[y][x] = (rgb << 8) | 0xFF;
 	}
 	else
 	{
-		f->map.colors[y][x] = -1;
+		f->map.colors[y][x] = 0xFFFFFFFF;
 	}
 	ft_free_split(parts);
 }

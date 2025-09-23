@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 22:48:02 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:39:16 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 	temp_y = point2d.y * f->scale + f->offset_y;
 	point2d.x = (int ) temp_x;
 	point2d.y = (int ) temp_y;
+	point2d.color = f->map.colors[y][x];
 	return (point2d);
 }

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 02:41:00 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 22:38:23 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:56:24 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_clearimg(t_fdf *f)
 		x = 0;
 		while (x < WIDTH)
 		{
-			ft_put(f->pixels, x, y, 0x00000000);
+			ft_put(f->pixels, x, y, 0x000000FF);
 			x++;
 		}
 		y++;

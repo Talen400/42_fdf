@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 23:11:56 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:04:01 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define HEIGHT 800
 # define BACK 190
 # define MARGIN 0.15f
+# define MOVE 10
+# define ZOOM 1
 
 typedef struct s_map
 {
@@ -44,6 +46,7 @@ typedef struct s_vec2
 {
 	float	x;
 	float	y;
+	float	color;
 }	t_vec2;
 
 typedef struct s_draw
@@ -112,7 +115,7 @@ void	ft_clearimg(t_fdf *s);
 void	ft_scrollhook(double xd, double yd, void *param);
 
 // bresenham
-void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b, uint32_t color);
+void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b);
 
 // algebra functions
 t_vec2	ft_get2d(t_fdf *f, int x, int y);
