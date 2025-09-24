@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 19:35:27 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:26:31 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	ft_read(&f, argv[1]);
 	ft_auto_calibrate(&f);
-	ft_print_map(&f);
+	//ft_print_map(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
 		return (ft_errorimg(f.mlx, f.img));

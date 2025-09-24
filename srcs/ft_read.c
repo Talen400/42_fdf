@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 18:56:48 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:22:32 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,24 @@ static void	ft_alloc(t_fdf	*f)
 {
 	int	i;
 
-	f->map.altitudes = (int **) malloc(sizeof(int *) * f->map.height);
+	f->map.altitudes = (int **) ft_calloc(f->map.height ,sizeof(int *));
 	if (!f->map.altitudes)
 		return ;
 	i = 0;
 	while (i < f->map.height)
 	{
-		f->map.altitudes[i] = (int *) malloc(sizeof(int) * f->map.width);
+		f->map.altitudes[i] = (int *)ft_calloc(f->map.height ,sizeof(int *));
 		if (!f->map.altitudes[i])
 			return ;
 		i++;
 	}
-	f->map.colors = (int **) malloc(sizeof(int *) * f->map.height);
+	f->map.colors = (int **) ft_calloc(f->map.height ,sizeof(int *));
 	if (!f->map.colors)
 		return ;
 	i = 0;
 	while (i < f->map.height)
 	{
-		f->map.colors[i] = (int *) malloc(sizeof(int) * f->map.width);
+		f->map.colors[i] = (int *) ft_calloc(f->map.height ,sizeof(int *));
 		if (!f->map.colors[i])
 			return ;
 		i++;
