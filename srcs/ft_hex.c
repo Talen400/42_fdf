@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 19:01:02 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 18:54:59 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/25 02:46:27 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_hex_to_int(char *hex)
 {
 	uint32_t	value;
 	int			i;
+	char		c;
 
 	value = 0;
 	i = 0;
@@ -23,15 +24,16 @@ int	ft_hex_to_int(char *hex)
 		i = 2;
 	while (hex[i])
 	{
+		c = hex[i];
 		value *= 16;
-		if (hex[i] >= '0' && hex[i] <= '9')
-			value += hex[i] - '0';
-		else if (hex[i] >= 'a' && hex[i] <= 'f')
-			value += hex[i] - 'a' + 10;
-		else if (hex[i] >= 'A' && hex[i] <= 'F')
-			value += hex[i] - 'A' + 10;
+		if (c >= '0' && c <= '9')
+			value += c - '0';
+		else if (c >= 'a' && c <= 'f')
+			value += c - 'a' + 10;
+		else if (c >= 'A' && c <= 'F')
+			value += c - 'A' + 10;
 		else
-			break;
+			break ;
 		i++;
 	}
 	return (value);

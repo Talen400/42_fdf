@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 19:44:43 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/25 02:45:04 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ static void	ft_keyhook5(mlx_key_data_t *k, t_fdf *f)
 		f->angle_y = M_PI / 4;
 		f->angle_z = 0;
 	}
+	else if (k->key == MLX_KEY_4)
+	{
+		f->angle_x = -M_PI / 4;
+		f->angle_y = 0.0f;
+		f->angle_z = M_PI / 4;
+	}
 }
 
 static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
@@ -32,21 +38,15 @@ static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
 	}
 	else if (k->key == MLX_KEY_2)
 	{
-		f->angle_x = -M_PI / 2; 		
+		f->angle_x = -M_PI / 2;
 		f->angle_y = 0.0f;
 		f->angle_z = 0.0f;
 	}
-	else if (k->key == MLX_KEY_3)	
+	else if (k->key == MLX_KEY_3)
 	{
 		f->angle_x = 0.0f;
-		f->angle_y = M_PI / 2;		
+		f->angle_y = M_PI / 2;
 		f->angle_z = 0.0f;
-	}
-	else if (k->key == MLX_KEY_4)	
-	{
-		f->angle_x = -M_PI / 4;
-		f->angle_y = 0.0f;
-		f->angle_z = M_PI / 4;
 	}
 	else
 		ft_keyhook5(k, f);
@@ -113,4 +113,3 @@ void	ft_keyhook(mlx_key_data_t k, void *param)
 		ft_keyhook2(&k, f);
 	ft_draw(f);
 }
-

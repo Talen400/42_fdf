@@ -6,17 +6,25 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:22:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 18:57:51 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/25 02:49:43 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static inline void	ft_put(uint32_t *pixels, int x, int y,
+static inline void	ft_put(uint8_t *pixels, int x, int y,
 		uint32_t color)
 {
+	int	index;
+
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-		pixels[y * WIDTH + x] = color;
+	{
+		index = (y * WIDTH + x) * 4;
+		pixels[index + 0] = (color >> 24) & 0xFF;
+		pixels[index + 1] = (color >> 16) & 0xFF;
+		pixels[index + 2] = (color >> 8) & 0xFF;
+		pixels[index + 3] = color & 0xFF;
+	}
 }
 
 static void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 19:28:45 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/25 02:41:42 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_fdf
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
-	uint32_t	*pixels;
+	uint8_t		*pixels;
 	float		angle_x;
 	float		angle_y;
 	float		angle_z;
