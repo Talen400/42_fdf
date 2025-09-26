@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/25 02:41:42 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:53:07 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_bresenham
 	int			sy;
 	int			err;
 	int			e2;
+	int			step;
 	float		ratio;
 }	t_bresenham;
 

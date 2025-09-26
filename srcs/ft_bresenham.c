@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:22:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/25 02:49:43 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:53:29 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,23 @@ static float	ft_ratio(step, dist)
 	return (0.0f);
 }
 
-void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
+static void	ft_calc(t_fdf *f, int *x0, int *y0)
 {
-	int			step;
+	f->bre.e2 = 2 * f->bre.err;
+	if (f->bre.e2 > -f->bre.dy)
+	{
+		f->bre.err -= f->bre.dy;
+		*x0 += f->bre.sx;
+	}
+	if (f->bre.e2 < f->bre.dx)
+	{
+		f->bre.err += f->bre.dx;
+		*y0 += f->bre.sy;
+	}
+}
+
+void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
+{	
 	float		dist;
 	int			x0;
 	int			y0;
@@ -62,26 +76,16 @@ void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b)
 	ft_bresenham_init(&f->bre, a, b);
 	x0 = (int ) a.x;
 	y0 = (int ) a.y;
-	step = 0;
+	f->bre.step = 0;
 	dist = sqrtf((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
 	while (1)
 	{
-		ratio = ft_ratio(step, dist);
+		ratio = ft_ratio(f->bre.step, dist);
 		color = ft_interpolate(a.color, b.color, ratio);
 		ft_put(f->pixels, x0, y0, color);
 		if (x0 == (int) b.x && y0 == (int) b.y)
 			break ;
-		f->bre.e2 = 2 * f->bre.err;
-		if (f->bre.e2 > -f->bre.dy)
-		{
-			f->bre.err -= f->bre.dy;
-			x0 += f->bre.sx;
-		}
-		if (f->bre.e2 < f->bre.dx)
-		{
-			f->bre.err += f->bre.dx;
-			y0 += f->bre.sy;
-		}
-		step++;
+		ft_calc(f, &x0, &y0);
+		f->bre.step++;
 	}
 }
