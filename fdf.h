@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/26 18:53:07 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/27 02:17:13 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,13 @@ typedef struct s_bresenham
 	float		ratio;
 }	t_bresenham;
 
+typedef struct s_hud
+{
+	mlx_image_t	*angle_x;
+	mlx_image_t	*angle_y;
+	mlx_image_t	*angle_z;
+}	t_hud;
+
 typedef struct s_fdf
 {
 	mlx_t		*mlx;
@@ -87,6 +94,7 @@ typedef struct s_fdf
 	float		center_z;
 	t_map		map;
 	t_bresenham	bre;
+	t_hud		hud;
 }	t_fdf;
 
 typedef struct s_color
@@ -129,5 +137,9 @@ void	ft_auto_calibrate(t_fdf *f);
 t_color	ft_init_color(uint32_t color);
 uint32_t	ft_color_to_int32(t_color color);
 uint32_t	ft_interpolate(uint32_t start, uint32_t end, float ratio);
+
+// hud
+void	ft_hud(t_fdf *f);
+void	ft_clear_hud(t_fdf *f);
 
 #endif
