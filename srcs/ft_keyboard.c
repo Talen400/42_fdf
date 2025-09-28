@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/25 02:45:04 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:47:04 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 static void	ft_keyhook5(mlx_key_data_t *k, t_fdf *f)
 {
-	if (k->key == MLX_KEY_5)
+	if (k->key == MLX_KEY_3)
 	{
-		f->angle_x = -M_PI / 6;
-		f->angle_y = M_PI / 4;
-		f->angle_z = 0;
-	}
-	else if (k->key == MLX_KEY_4)
-	{
-		f->angle_x = -M_PI / 4;
-		f->angle_y = 0.0f;
-		f->angle_z = M_PI / 4;
+		f->angle_x = 0;
+		f->angle_y = 0;
+		f->angle_z = 90;
 	}
 }
 
@@ -32,21 +26,9 @@ static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
 {
 	if (k->key == MLX_KEY_2)
 	{
-		f->angle_x = -M_PI / 2;
-		f->angle_y = 0.0f;
-		f->angle_z = 0.0f;
-	}
-	else if (k->key == MLX_KEY_2)
-	{
-		f->angle_x = -M_PI / 2;
-		f->angle_y = 0.0f;
-		f->angle_z = 0.0f;
-	}
-	else if (k->key == MLX_KEY_3)
-	{
-		f->angle_x = 0.0f;
-		f->angle_y = M_PI / 2;
-		f->angle_z = 0.0f;
+		f->angle_x = 0;
+		f->angle_y = 90;
+		f->angle_z = 0;
 	}
 	else
 		ft_keyhook5(k, f);
@@ -68,9 +50,9 @@ static void	ft_keyhook3(mlx_key_data_t *k, t_fdf *f)
 		f->scale -= ZOOM;
 	else if (k->key == MLX_KEY_1)
 	{
-		f->angle_x = 0.0f;
-		f->angle_y = 0.0f;
-		f->angle_z = 0.0f;
+		f->angle_x = 90;
+		f->angle_y = 0;
+		f->angle_z = 0;
 	}
 	else
 		ft_keyhook4(k, f);
@@ -79,17 +61,17 @@ static void	ft_keyhook3(mlx_key_data_t *k, t_fdf *f)
 static void	ft_keyhook2(mlx_key_data_t *k, t_fdf *f)
 {
 	if (k->key == MLX_KEY_LEFT)
-		f->angle_y -= 0.1f;
+		f->angle_y -= VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_RIGHT)
-		f->angle_y += 0.1f;
+		f->angle_y += VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_UP)
-		f->angle_x -= 0.1f;
+		f->angle_x -= VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_DOWN)
-		f->angle_x += 0.1f;
+		f->angle_x += VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_Q)
-		f->angle_z -= 0.1f;
+		f->angle_z -= VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_E)
-		f->angle_z += 0.1f;
+		f->angle_z += VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_R)
 	{
 		f->angle_x = 0;
@@ -107,7 +89,7 @@ void	ft_keyhook(mlx_key_data_t k, void *param)
 	f = (t_fdf *)param;
 	if (k.action != MLX_PRESS && k.action != MLX_REPEAT)
 		return ;
-	else if (k.key == MLX_KEY_X)
+	else if (k.key == MLX_KEY_ESCAPE)
 		mlx_close_window(f->mlx);
 	else
 		ft_keyhook2(&k, f);

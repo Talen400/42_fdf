@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 00:25:38 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 23:04:09 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:03:08 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,4 @@ uint32_t	ft_interpolate(uint32_t start, uint32_t end, float ratio)
 	result.a = 0xFF;
 	return (ft_color_to_int32(result));
 }
-/*
-uint32_t	ft_altitude_to_color(int altitude, int min_alt, int max_alt)
-{
-	float		normalized;
-	uint32_t	low_color;
-	uint32_t	high_color;
 
-	low_color = 0x0066FFFF;
-	high_color = 0xFF3300FF;
-	if (max_alt == min_alt)
-		return (0xFFFFFFFF);
-	normalized = (float) ((altitude - min_alt) / (max_alt - min_alt));
-	return (ft_interpolate(low_color, high_color, normalized));
-}
-*/

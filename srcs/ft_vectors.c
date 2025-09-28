@@ -6,18 +6,18 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/23 18:39:16 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:48:46 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static t_vec2	ft_iso(t_vec3 p)
+static t_vec2	ft_iso(t_vec3 p, float angle)
 {
 	t_vec2	result;
 
-	result.x = (p.x - p.y) * cosf(0.523599);
-	result.y = (p.x + p.y) * sinf(0.523599) - p.z;
+	result.x = (p.x - p.y) * cosf(angle);
+	result.y = (p.x + p.y) * sinf(angle) - p.z;
 	return (result);
 }
 
@@ -61,13 +61,13 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 	float	temp_x;
 	float	temp_y;
 
-	point3d.x = x - f->center_x;
-	point3d.y = y - f->center_y;
+	point3d.x = (float ) (x - f->center_x);
+	point3d.y = (float ) (y - f->center_y);
 	point3d.z = (f->map.altitudes[y][x] - f->center_z);
-	ft_rotatex(&point3d, f->angle_x);
-	ft_rotatey(&point3d, f->angle_y);
-	ft_rotatez(&point3d, f->angle_z);
-	point2d = ft_iso(point3d);
+	ft_rotatex(&point3d, ft_degree_to_radian(f->angle_x));
+	ft_rotatey(&point3d, ft_degree_to_radian(f->angle_y));
+	ft_rotatez(&point3d, ft_degree_to_radian(f->angle_z));
+	point2d = ft_iso(point3d, ft_degree_to_radian(0));
 	temp_x = point2d.x * f->scale + f->offset_x;
 	temp_y = point2d.y * f->scale + f->offset_y;
 	point2d.x = (int ) temp_x;

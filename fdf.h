@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/26 18:53:07 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/27 23:55:58 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <math.h>
 # include <fcntl.h>
 
-# define M_PI 3.14159265358979323846
 # define WIDTH 1200
 # define HEIGHT 800
 # define BACK 190
 # define MARGIN 0.15f
 # define MOVE 10
 # define ZOOM 1
+# define VEL_ROTATION_ANGLE 5
 
 typedef struct s_map
 {
@@ -71,20 +71,31 @@ typedef struct s_bresenham
 	float		ratio;
 }	t_bresenham;
 
+typedef struct s_hud
+{
+	mlx_image_t	*angle_x;
+	mlx_image_t	*angle_y;
+	mlx_image_t	*angle_z;
+	mlx_image_t	*offset_x;
+	mlx_image_t	*offset_y;
+	mlx_image_t	*scale;
+}	t_hud;
+
 typedef struct s_fdf
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	t_hud		hud;
 	uint8_t		*pixels;
-	float		angle_x;
-	float		angle_y;
-	float		angle_z;
+	int			angle_x;
+	int			angle_y;
+	int			angle_z;
 	float		scale;
 	int			offset_x;
 	int			offset_y;
-	float		center_x;
-	float		center_y;
-	float		center_z;
+	int			center_x;
+	int			center_y;
+	int			center_z;
 	t_map		map;
 	t_bresenham	bre;
 }	t_fdf;
@@ -129,5 +140,12 @@ void	ft_auto_calibrate(t_fdf *f);
 t_color	ft_init_color(uint32_t color);
 uint32_t	ft_color_to_int32(t_color color);
 uint32_t	ft_interpolate(uint32_t start, uint32_t end, float ratio);
+
+// math
+float	ft_degree_to_radian(int degree);
+
+// hud
+void	ft_hud(t_fdf *f);
+void	ft_clear_hud(t_fdf *f);
 
 #endif
