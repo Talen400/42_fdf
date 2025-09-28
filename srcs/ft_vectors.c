@@ -6,13 +6,13 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 01:55:38 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/28 02:54:33 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-static t_vec2	ft_iso(t_vec3 p, float angle)
+t_vec2	ft_iso(t_vec3 p, float angle)
 {
 	t_vec2	result;
 
@@ -21,7 +21,7 @@ static t_vec2	ft_iso(t_vec3 p, float angle)
 	return (result);
 }
 
-static void	ft_rotatex(t_vec3 *p, float angle)
+void	ft_rotatex(t_vec3 *p, float angle)
 {
 	float	y;
 	float	z;
@@ -32,7 +32,7 @@ static void	ft_rotatex(t_vec3 *p, float angle)
 	p->z = y * sinf(angle) + z * cosf(angle);
 }
 
-static void	ft_rotatey(t_vec3 *p, float angle)
+void	ft_rotatey(t_vec3 *p, float angle)
 {
 	float	x;
 	float	z;
@@ -43,7 +43,7 @@ static void	ft_rotatey(t_vec3 *p, float angle)
 	p->z = -x * sinf(angle) + z * cosf(angle);
 }
 
-static void	ft_rotatez(t_vec3 *p, float angle)
+void	ft_rotatez(t_vec3 *p, float angle)
 {
 	float	x;
 	float	y;

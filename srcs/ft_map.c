@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:44:09 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 02:24:26 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/28 02:32:09 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void	ft_draw(t_fdf *f)
 	ft_clearimg(f);
 	ft_clear_hud(f);
 	ft_map(f);
+	ft_draw_orientation_arrows(f);
 	ft_hud(f);
 }

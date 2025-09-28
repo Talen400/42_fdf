@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 02:24:06 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/28 02:53:53 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <math.h>
 # include <fcntl.h>
 
-//# define M_PI 3.14159265358979323846
+# define M_PI 3.14159265358979323846
 # define WIDTH 1200
 # define HEIGHT 800
 # define BACK 190
@@ -133,6 +133,10 @@ void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b);
 
 // algebra functions
 t_vec2	ft_get2d(t_fdf *f, int x, int y);
+void	ft_rotatex(t_vec3 *p, float angle);
+void	ft_rotatey(t_vec3 *p, float angle);
+void	ft_rotatez(t_vec3 *p, float angle);
+t_vec2	ft_iso(t_vec3 p, float angle);
 
 // auto-calibrate
 void	ft_auto_calibrate(t_fdf *f);
@@ -148,5 +152,9 @@ float	ft_degree_to_radian(int degree);
 // hud
 void	ft_hud(t_fdf *f);
 void	ft_clear_hud(t_fdf *f);
+
+// axis
+
+void	ft_draw_orientation_arrows(t_fdf *f);
 
 #endif
