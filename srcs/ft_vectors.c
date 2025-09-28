@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/27 23:48:46 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/28 01:55:38 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 	ft_rotatex(&point3d, ft_degree_to_radian(f->angle_x));
 	ft_rotatey(&point3d, ft_degree_to_radian(f->angle_y));
 	ft_rotatez(&point3d, ft_degree_to_radian(f->angle_z));
-	point2d = ft_iso(point3d, ft_degree_to_radian(0));
+	point2d = ft_iso(point3d, ft_degree_to_radian(30));
 	temp_x = point2d.x * f->scale + f->offset_x;
 	temp_y = point2d.y * f->scale + f->offset_y;
 	point2d.x = (int ) temp_x;

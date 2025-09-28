@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/27 23:34:56 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/28 01:54:46 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 static int	ft_init(t_fdf *f)
 {
-	f->angle_x = 30;
-	f->angle_y = 30;
-	f->angle_z = 270;
+	f->angle_x = 0;
+	f->angle_y = 0;
+	f->angle_z = 0;
 	f->scale = 20.0f;
 	f->offset_x = WIDTH / 2;
 	f->offset_y = HEIGHT / 2;
