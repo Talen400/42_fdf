@@ -43,7 +43,7 @@ static void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
 	bre->e2 = 0;
 }
 
-static float	ft_ratio(step, dist)
+static float	ft_ratio(int step, float dist)
 {
 	if (dist != 0.0f)
 		return ((float ) step / dist);
