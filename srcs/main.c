@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/29 23:43:01 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 03:13:56 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	ft_init(t_fdf *f)
 {
+	f->projection = PROJ_ISO;
+	f->focal_lenght = 200.0f;
 	f->angle_x = 0;
 	f->angle_y = 0;
 	f->angle_z = 0;

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 02:36:31 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 03:53:11 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define VEL_ROTATION_ANGLE 5
 # define AXIS_POS 80
 # define AXIS_LENGHT 40
+# define FOCAL_VEL 1
 
 typedef struct s_map
 {
@@ -54,8 +55,8 @@ typedef struct s_vec2
 
 typedef struct s_draw
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	t_vec3	point3d;
 	t_vec2	point2d;
 	t_vec2	next2d;
@@ -82,26 +83,37 @@ typedef struct s_hud
 	mlx_image_t	*offset_y;
 	mlx_image_t	*scale;
 	mlx_image_t	*z_scale;
+	mlx_image_t	*focal;
+	mlx_image_t	*projection;
 }	t_hud;
+
+typedef enum e_projection
+{
+	PROJ_ISO,
+	PROJ_ORTHO,
+	PROJ_PERSPECTIVE
+}	t_projection;
 
 typedef struct s_fdf
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_hud		hud;
-	uint8_t		*pixels;
-	int			angle_x;
-	int			angle_y;
-	int			angle_z;
-	float		scale;
-	float		z_scale;
-	int			offset_x;
-	int			offset_y;
-	int			center_x;
-	int			center_y;
-	int			center_z;
-	t_map		map;
-	t_bresenham	bre;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_hud			hud;
+	t_projection	projection;
+	uint8_t			*pixels;
+	int				angle_x;
+	int				angle_y;
+	int				angle_z;
+	float			scale;
+	float			z_scale;
+	float			focal_lenght;
+	int				offset_x;
+	int				offset_y;
+	int				center_x;
+	int				center_y;
+	int				center_z;
+	t_map			map;
+	t_bresenham		bre;
 }	t_fdf;
 
 typedef struct s_color
@@ -113,60 +125,62 @@ typedef struct s_color
 }	t_color;
 
 // utils of reads
-void	ft_free_split(char **split);
+void		ft_free_split(char **split);
 
 // hex parse
 int			ft_hex_to_int(char *hex);
 
 // read
-int		ft_read(t_fdf *f, char *filename);
+int			ft_read(t_fdf *f, char *filename);
 
 // main of draw
-void	ft_draw(t_fdf *f);
+void		ft_draw(t_fdf *f);
 
 // MLX42
-void	ft_keyhook(mlx_key_data_t keydata, void *param);
-int		ft_errorinit(mlx_t *mlx);
-int		ft_errorimg(mlx_t *mlx, mlx_image_t *img);
-void	ft_clearimg(t_fdf *s);
-void	ft_scrollhook(double xd, double yd, void *param);
+void		ft_keyhook(mlx_key_data_t keydata, void *param);
+int			ft_errorinit(mlx_t *mlx);
+int			ft_errorimg(mlx_t *mlx, mlx_image_t *img);
+void		ft_clearimg(t_fdf *s);
+void		ft_scrollhook(double xd, double yd, void *param);
 
 // bresenham
-void	ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b);
+void		ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b);
 
 // algebra functions
-t_vec2	ft_get2d(t_fdf *f, int x, int y);
-void	ft_rotatex(t_vec3 *p, float angle);
-void	ft_rotatey(t_vec3 *p, float angle);
-void	ft_rotatez(t_vec3 *p, float angle);
-t_vec2	ft_iso(t_vec3 p, float angle);
+t_vec2		ft_get2d(t_fdf *f, int x, int y);
+void		ft_rotatex(t_vec3 *p, float angle);
+void		ft_rotatey(t_vec3 *p, float angle);
+void		ft_rotatez(t_vec3 *p, float angle);
+t_vec2		ft_iso(t_vec3 p, float angle);
 
 // auto-calibrate
-void	ft_auto_calibrate(t_fdf *f);
+void		ft_auto_calibrate(t_fdf *f);
 
 // colors
-t_color	ft_init_color(uint32_t color);
+t_color		ft_init_color(uint32_t color);
 uint32_t	ft_color_to_int32(t_color color);
 uint32_t	ft_interpolate(uint32_t start, uint32_t end, float ratio);
 
 // math
-float	ft_degree_to_radian(int degree);
+float		ft_degree_to_radian(int degree);
 
 // hud
-void	ft_hud(t_fdf *f);
-void	ft_clear_hud(t_fdf *f);
+void		ft_hud(t_fdf *f);
+void		ft_clear_hud(t_fdf *f);
 
 // hud utils
-char	*ft_create_label_float(const char *prefix, float value);
-char	*ft_create_label(const char *prefix, int value);
-void	ft_clear_img(t_fdf *f, mlx_image_t **img);
+char		*ft_create_label_float(const char *prefix, float value);
+char		*ft_create_label(const char *prefix, int value);
+void		ft_clear_img(t_fdf *f, mlx_image_t **img);
+char		*ft_get_projection_name(t_projection proj);
 
 // axis
-void	ft_draw_orientation_arrows(t_fdf *f);
+void		ft_draw_orientation_arrows(t_fdf *f);
 
 // axis utils
-void	ft_init_axis_vectors(t_vec3 *axis_x, t_vec3 *axis_y, t_vec3 *axis_z);
-void	ft_setup_origin(t_vec2 *origin);
-t_vec3	ft_rotate_axis_vector(t_fdf *f, t_vec3 axis);
+void		ft_init_axis_vectors(t_vec3 *axis_x, t_vec3 *axis_y,
+				t_vec3 *axis_z);
+void		ft_setup_origin(t_vec2 *origin);
+t_vec3		ft_rotate_axis_vector(t_fdf *f, t_vec3 axis);
 
 #endif

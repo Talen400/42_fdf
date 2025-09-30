@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 23:56:25 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/29 23:49:44 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 03:48:37 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ static void	ft_display_int(t_fdf *f, mlx_image_t **img,
 	free(text);
 }
 
+static void	ft_hud_2(t_fdf *f, int y)
+{
+	char	*proj_text;
+
+	ft_display_int(f, &f->hud.focal, "focal: ", f->focal_lenght);
+	if (f->hud.focal)
+		f->hud.focal->instances[0].y = y + 120;
+	proj_text = ft_get_projection_name(f->projection);
+	f->hud.projection = mlx_put_string(f->mlx, (char *)proj_text, 30, y + 135);
+	if (f->hud.projection)
+		f->hud.projection->instances[0].y = y + 135;
+}
+
 void	ft_hud(t_fdf *f)
 {
 	int	y;
@@ -76,6 +89,7 @@ void	ft_hud(t_fdf *f)
 	ft_display_float(f, &f->hud.z_scale, "z_scale: ", f->z_scale);
 	if (f->hud.z_scale)
 		f->hud.z_scale->instances[0].y = y + 105;
+	ft_hud_2(f, y);
 }
 
 void	ft_clear_hud(t_fdf *f)
@@ -87,4 +101,6 @@ void	ft_clear_hud(t_fdf *f)
 	ft_clear_img(f, &f->hud.angle_z);
 	ft_clear_img(f, &f->hud.scale);
 	ft_clear_img(f, &f->hud.z_scale);
+	ft_clear_img(f, &f->hud.focal);
+	ft_clear_img(f, &f->hud.projection);
 }

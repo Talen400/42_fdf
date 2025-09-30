@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/29 23:27:15 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 03:15:57 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static void	ft_keyhook5(mlx_key_data_t *k, t_fdf *f)
 		f->angle_y = 180;
 		f->angle_z = -225;
 	}
+	else if (k->key == MLX_KEY_T)
+		f->projection = PROJ_ISO;
+	else if (k->key == MLX_KEY_Y)
+		f->projection = PROJ_ORTHO;
+	else if (k->key == MLX_KEY_G)
+		f->projection = PROJ_PERSPECTIVE;
 }
 
 static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
@@ -52,6 +58,10 @@ static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
 		f->z_scale += 0.1f;
 	else if (k->key == MLX_KEY_I)
 		f->z_scale -= 0.1f;
+	else if (k->key == MLX_KEY_N)
+		f->focal_lenght += FOCAL_VEL;
+	else if (k->key == MLX_KEY_M)
+		f->focal_lenght -= FOCAL_VEL;
 	else
 		ft_keyhook5(k, f);
 }

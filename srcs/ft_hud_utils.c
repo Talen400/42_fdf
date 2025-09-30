@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 23:32:49 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 00:04:05 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 03:48:53 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,15 @@ void	ft_clear_img(t_fdf *f, mlx_image_t **img)
 		mlx_delete_image(f->mlx, *img);
 		*img = NULL;
 	}
+}
+
+char	*ft_get_projection_name(t_projection proj)
+{
+	if (proj == PROJ_ISO)
+		return ("ISOMETRIC");
+	else if (proj == PROJ_ORTHO)
+		return ("ORTO");
+	else if (proj == PROJ_PERSPECTIVE)
+		return ("CONIC");
+	return ("UNKNOW");
 }
