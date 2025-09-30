@@ -6,12 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 01:54:46 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:43:01 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-#include <stdio.h>
 
 static int	ft_init(t_fdf *f)
 {
@@ -19,6 +18,7 @@ static int	ft_init(t_fdf *f)
 	f->angle_y = 0;
 	f->angle_z = 0;
 	f->scale = 20.0f;
+	f->z_scale = 0.1f;
 	f->offset_x = WIDTH / 2;
 	f->offset_y = HEIGHT / 2;
 	f->mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
@@ -46,15 +46,31 @@ void	ft_freemap(t_fdf *f)
 	free(f->map.colors);
 }
 
+static int	ft_valid(char *str)
+{
+	char	**parts;
+
+	parts = ft_split(str, '.');
+	if (!parts[1])
+		return (1);
+	if (ft_strncmp(parts[1], "fdf", 4))
+		return (1);
+	ft_free_split(parts);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_fdf	f;
 
 	if (argc != 2)
 		return (1);
+	if (ft_valid(argv[1]))
+		return (1);
 	if (ft_init(&f) != 0)
 		return (1);
-	ft_read(&f, argv[1]);
+	if (ft_read(&f, argv[1]))
+		return (1);
 	ft_auto_calibrate(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)

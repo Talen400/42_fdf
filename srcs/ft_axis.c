@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 02:48:23 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 02:54:47 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/29 18:26:12 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	ft_draw_arrow_tips(t_fdf *f, t_vec2 end, double angle,
 	double	arrow_angle2;
 	int		arrow_length;
 
-	arrow_length = 8;
+	arrow_length = AXIS_LENGHT / 8;
 	arrow_angle1 = angle + 2.35619449019;
 	arrow_tip1.x = end.x + arrow_length * cos(arrow_angle1);
 	arrow_tip1.y = end.y + arrow_length * sin(arrow_angle1);
@@ -99,7 +99,7 @@ static void	ft_setup_origin(t_vec2 *origin)
 {
 	int	margin;
 
-	margin = 80;
+	margin = AXIS_POS;
 	origin->x = WIDTH - margin;
 	origin->y = HEIGHT - margin;
 }
@@ -111,7 +111,7 @@ void	ft_draw_orientation_arrows(t_fdf *f)
 	t_vec2	end[3];
 	int		arrow_length;
 
-	arrow_length = 40;
+	arrow_length = AXIS_LENGHT;
 	ft_init_axis_vectors(&axis[0], &axis[1], &axis[2]);
 	ft_setup_origin(&origin);
 	axis[0] = ft_rotate_axis_vector(f, axis[0]);

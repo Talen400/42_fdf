@@ -6,13 +6,13 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 23:08:58 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/27 23:17:06 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/29 18:09:30 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-float	ft_degree_to_radian(int	degree)
+float	ft_degree_to_radian(int degree)
 {
 	float	radian;
 

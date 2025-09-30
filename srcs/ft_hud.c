@@ -6,49 +6,76 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 23:56:25 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 02:06:15 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:49:44 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	ft_mlx_char_to_int(t_fdf *f, mlx_image_t **img, const char *input,
-	int integer, int x, int y)
-{
-	char	*str;
-	char	*ptr;
-	char	*joined;
+/*
+ FLOAT
+*/
 
-	str = ft_itoa(integer);
-	if (!str)
-	{
-		free(str);
-		str = NULL;
-	}
-	ptr = (char *) input;
-	joined = ft_strjoin(ptr, str);
-	*img = mlx_put_string(f->mlx, joined, x, y);
-	free(str);
-	free(joined);
+static void	ft_display_float(t_fdf *f, mlx_image_t **img,
+	const char *label, float value)
+{
+	char	*text;
+	t_vec2	pos;
+
+	pos.x = 30;
+	pos.y = 30;
+	text = ft_create_label_float(label, value);
+	if (!text)
+		return ;
+	*img = mlx_put_string(f->mlx, text, (int) pos.x, (int) pos.y);
+	free(text);
+}
+
+/*
+ INTEGER
+*/
+
+static void	ft_display_int(t_fdf *f, mlx_image_t **img,
+	const char *label, int value)
+{
+	char	*text;
+	t_vec2	pos;
+
+	pos.x = 30;
+	pos.y = 30;
+	text = ft_create_label(label, value);
+	if (!text)
+		return ;
+	*img = mlx_put_string(f->mlx, text, (int ) pos.x, (int) pos.y);
+	free(text);
 }
 
 void	ft_hud(t_fdf *f)
 {
-	ft_mlx_char_to_int(f, &f->hud.offset_x, "offset_x: ", f->offset_x, 30, 30);
-	ft_mlx_char_to_int(f, &f->hud.offset_y, "offset_y: ", f->offset_y, 30, 45);
-	ft_mlx_char_to_int(f, &f->hud.angle_x, "angle_x: ", f->angle_x, 30, 60);
-	ft_mlx_char_to_int(f, &f->hud.angle_y, "angle_y ", f->angle_y, 30, 75);
-	ft_mlx_char_to_int(f, &f->hud.angle_z, "angle_z: ", f->angle_z, 30, 90);
-	ft_mlx_char_to_int(f, &f->hud.scale, "scale: ", f->scale, 30, 105);
-}
+	int	y;
 
-static void	ft_clear_img(t_fdf *f, mlx_image_t **img)
-{
-	if (*img)
-	{
-		mlx_delete_image(f->mlx, *img);
-		*img = NULL;
-	}
+	y = 30;
+	ft_display_int(f, &f->hud.offset_x, "offset_x: ", f->offset_x);
+	if (f->hud.offset_x)
+		f->hud.offset_x->instances[0].y = y + 15;
+	ft_display_int(f, &f->hud.offset_y, "offset_y: ", f->offset_y);
+	if (f->hud.offset_y)
+		f->hud.offset_y->instances[0].y = y + 30;
+	ft_display_int(f, &f->hud.angle_x, "angle_x: ", f->angle_x);
+	if (f->hud.angle_x)
+		f->hud.angle_x->instances[0].y = y + 45;
+	ft_display_int(f, &f->hud.angle_y, "angle_y: ", f->angle_y);
+	if (f->hud.angle_y)
+		f->hud.angle_y->instances[0].y = y + 60;
+	ft_display_int(f, &f->hud.angle_z, "angle_z: ", f->angle_z);
+	if (f->hud.angle_z)
+		f->hud.angle_z->instances[0].y = y + 75;
+	ft_display_float(f, &f->hud.scale, "scale: ", f->scale);
+	if (f->hud.scale)
+		f->hud.scale->instances[0].y = y + 90;
+	ft_display_float(f, &f->hud.z_scale, "z_scale: ", f->z_scale);
+	if (f->hud.z_scale)
+		f->hud.z_scale->instances[0].y = y + 105;
 }
 
 void	ft_clear_hud(t_fdf *f)
@@ -59,5 +86,5 @@ void	ft_clear_hud(t_fdf *f)
 	ft_clear_img(f, &f->hud.angle_y);
 	ft_clear_img(f, &f->hud.angle_z);
 	ft_clear_img(f, &f->hud.scale);
+	ft_clear_img(f, &f->hud.z_scale);
 }
-

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 02:53:53 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 00:12:11 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 # define M_PI 3.14159265358979323846
 # define WIDTH 1200
 # define HEIGHT 800
-# define BACK 190
 # define MARGIN 0.15f
 # define MOVE 10
 # define ZOOM 1
 # define VEL_ROTATION_ANGLE 5
+# define AXIS_POS 80
+# define AXIS_LENGHT 40
 
 typedef struct s_map
 {
@@ -80,6 +81,7 @@ typedef struct s_hud
 	mlx_image_t	*offset_x;
 	mlx_image_t	*offset_y;
 	mlx_image_t	*scale;
+	mlx_image_t	*z_scale;
 }	t_hud;
 
 typedef struct s_fdf
@@ -92,6 +94,7 @@ typedef struct s_fdf
 	int			angle_y;
 	int			angle_z;
 	float		scale;
+	float		z_scale;
 	int			offset_x;
 	int			offset_y;
 	int			center_x;
@@ -116,7 +119,7 @@ void	ft_free_split(char **split);
 int			ft_hex_to_int(char *hex);
 
 // read
-void	ft_read(t_fdf *f, char *filename);
+int		ft_read(t_fdf *f, char *filename);
 
 // main of draw
 void	ft_draw(t_fdf *f);
@@ -152,6 +155,11 @@ float	ft_degree_to_radian(int degree);
 // hud
 void	ft_hud(t_fdf *f);
 void	ft_clear_hud(t_fdf *f);
+
+// hud utils
+char	*ft_create_label_float(const char *prefix, float value);
+char	*ft_create_label(const char *prefix, int value);
+void	ft_clear_img(t_fdf *f, mlx_image_t **img);
 
 // axis
 

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 00:25:38 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/27 23:03:08 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/29 18:08:55 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,3 @@ uint32_t	ft_interpolate(uint32_t start, uint32_t end, float ratio)
 	result.a = 0xFF;
 	return (ft_color_to_int32(result));
 }
-

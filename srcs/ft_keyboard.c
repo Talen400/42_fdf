@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/28 03:04:03 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/29 23:27:15 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,16 @@ static void	ft_keyhook4(mlx_key_data_t *k, t_fdf *f)
 		f->angle_y = 90;
 		f->angle_z = 0;
 	}
-	if (k->key == MLX_KEY_3)
+	else if (k->key == MLX_KEY_3)
 	{
 		f->angle_x = 0;
 		f->angle_y = 0;
 		f->angle_z = 90;
 	}
+	else if (k->key == MLX_KEY_U)
+		f->z_scale += 0.1f;
+	else if (k->key == MLX_KEY_I)
+		f->z_scale -= 0.1f;
 	else
 		ft_keyhook5(k, f);
 }
@@ -95,6 +99,7 @@ static void	ft_keyhook2(mlx_key_data_t *k, t_fdf *f)
 		f->angle_x = 0;
 		f->angle_y = 0;
 		f->angle_z = 0;
+		f->z_scale = 0.1f;
 	}
 	else
 		ft_keyhook3(k, f);
