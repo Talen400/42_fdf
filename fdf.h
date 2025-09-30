@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 00:12:11 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 02:36:31 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,11 @@ char	*ft_create_label(const char *prefix, int value);
 void	ft_clear_img(t_fdf *f, mlx_image_t **img);
 
 // axis
-
 void	ft_draw_orientation_arrows(t_fdf *f);
+
+// axis utils
+void	ft_init_axis_vectors(t_vec3 *axis_x, t_vec3 *axis_y, t_vec3 *axis_z);
+void	ft_setup_origin(t_vec2 *origin);
+t_vec3	ft_rotate_axis_vector(t_fdf *f, t_vec3 axis);
 
 #endif

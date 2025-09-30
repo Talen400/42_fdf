@@ -6,10 +6,9 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 02:48:23 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/29 18:26:12 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 02:38:10 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../fdf.h"
 
@@ -28,14 +27,6 @@ static void	ft_draw_colored_line(t_fdf *f, t_vec2 start, t_vec2 end,
 	if (line_start.x == line_end.x && line_start.y == line_end.y)
 		return ;
 	ft_bresenham(f, line_start, line_end);
-}
-
-static t_vec3	ft_rotate_axis_vector(t_fdf *f, t_vec3 axis)
-{
-	ft_rotatex(&axis, ft_degree_to_radian(f->angle_x));
-	ft_rotatey(&axis, ft_degree_to_radian(f->angle_y));
-	ft_rotatez(&axis, ft_degree_to_radian(f->angle_z));
-	return (axis);
 }
 
 static t_vec2	ft_project_axis(t_vec3 axis, int origin_x, int origin_y,
@@ -80,28 +71,6 @@ static void	ft_draw_arrow(t_fdf *f, t_vec2 origin, t_vec2 end, uint32_t color)
 	ft_draw_colored_line(f, origin, end, color);
 	angle = atan2(end.y - origin.y, end.x - origin.x);
 	ft_draw_arrow_tips(f, end, angle, color);
-}
-
-static void	ft_init_axis_vectors(t_vec3 *axis_x, t_vec3 *axis_y, t_vec3 *axis_z)
-{
-	axis_x->x = 1;
-	axis_x->y = 0;
-	axis_x->z = 0;
-	axis_y->x = 0;
-	axis_y->y = 1;
-	axis_y->z = 0;
-	axis_z->x = 0;
-	axis_z->y = 0;
-	axis_z->z = 1;
-}
-
-static void	ft_setup_origin(t_vec2 *origin)
-{
-	int	margin;
-
-	margin = AXIS_POS;
-	origin->x = WIDTH - margin;
-	origin->y = HEIGHT - margin;
 }
 
 void	ft_draw_orientation_arrows(t_fdf *f)

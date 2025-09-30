@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/29 20:10:01 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 00:24:15 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ static void	ft_reading(t_fdf *f, int fd)
 	}
 }
 
-int		ft_read(t_fdf *f, char *filename)
+int	ft_read(t_fdf *f, char *filename)
 {
 	int		fd;
 

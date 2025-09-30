@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 00:10:15 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 00:23:51 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ t_vec2	ft_get2d(t_fdf *f, int x, int y)
 	ft_rotatey(&point3d, ft_degree_to_radian(f->angle_y));
 	ft_rotatez(&point3d, ft_degree_to_radian(f->angle_z));
 	point2d = ft_iso(point3d, ft_degree_to_radian(30));
-	point2d.x = (int) (point2d.x * f->scale + (float )f->offset_x);
-	point2d.y = (int) (point2d.y * f->scale + (float )f->offset_y);
+	point2d.x = (int)(point2d.x * f->scale + (float )f->offset_x);
+	point2d.y = (int)(point2d.y * f->scale + (float )f->offset_y);
 	point2d.color = f->map.colors[y][x];
 	return (point2d);
 }
