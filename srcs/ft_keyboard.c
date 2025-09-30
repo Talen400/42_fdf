@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 18:09:07 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:07:31 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ static void	ft_keyhook3(mlx_key_data_t *k, t_fdf *f)
 static void	ft_keyhook2(mlx_key_data_t *k, t_fdf *f)
 {
 	if (k->key == MLX_KEY_LEFT)
-		f->angle_y -= VEL_ROTATION_ANGLE;
-	else if (k->key == MLX_KEY_RIGHT)
-		f->angle_y += VEL_ROTATION_ANGLE;
-	else if (k->key == MLX_KEY_UP)
 		f->angle_x -= VEL_ROTATION_ANGLE;
-	else if (k->key == MLX_KEY_DOWN)
+	else if (k->key == MLX_KEY_RIGHT)
 		f->angle_x += VEL_ROTATION_ANGLE;
+	else if (k->key == MLX_KEY_UP)
+		f->angle_y -= VEL_ROTATION_ANGLE;
+	else if (k->key == MLX_KEY_DOWN)
+		f->angle_y += VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_Q)
 		f->angle_z -= VEL_ROTATION_ANGLE;
 	else if (k->key == MLX_KEY_E)

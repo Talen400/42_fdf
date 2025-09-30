@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 00:24:15 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:50:37 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	ft_alloc(t_fdf	*f)
 	i = 0;
 	while (i < f->map.height)
 	{
-		f->map.altitudes[i] = (int *)ft_calloc(f->map.height, sizeof(int *));
+		f->map.altitudes[i] = (int *)ft_calloc(f->map.width, sizeof(int));
 		if (!f->map.altitudes[i])
 			return ;
 		i++;
@@ -59,7 +59,7 @@ static void	ft_alloc(t_fdf	*f)
 	i = 0;
 	while (i < f->map.height)
 	{
-		f->map.colors[i] = (int *) ft_calloc(f->map.height, sizeof(int *));
+		f->map.colors[i] = (int *) ft_calloc(f->map.width, sizeof(int));
 		if (!f->map.colors[i])
 			return ;
 		i++;

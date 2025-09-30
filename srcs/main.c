@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 03:13:56 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:29:13 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,51 @@ static int	ft_valid(char *str)
 	return (0);
 }
 
+static void	ft_print_keys()
+{
+	ft_printf("--------------Keyboard------------:\n"
+		"Close window: ESC\n"
+		"Move: W A S D\n"
+		"Zoom (scale): J (in) / K (out)\n"
+		"Z scale: U (up) / I (down)\n"
+		"Focal point: N (closer) / M (farther)\n"
+		"Rotate:\n"
+		"  - X axis: LEFT / RIGHT\n"
+		"  - Y axis: UP / DOWN\n"
+		"  - Z axis: Q / A / E\n"
+		"Reset: R\n"
+		"Orthogonal Views:\n"
+		"  1: Top view\n"
+		"  2: Side view (right)\n"
+		"  3: Front/Custom view\n"
+		"  4/5/6: Custom camera angles\n"
+		"Projection types:\n"
+		"  - Isometric: T\n"
+		"  - Orthographic: Y\n"
+		"  - Perspective (Conic): G\n"
+		"  - Polar: O\n"
+		"  - Cylindric: P\n");
+}
+
+static void	ft_printmap(t_fdf *f)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < f->map.height)
+	{
+		x =0;
+		while (x < f->map.width)
+		{
+			ft_printf("%d ", f->map.altitudes[y][x]);
+			x++;
+		}
+		ft_printf("\n");
+		y++;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	t_fdf	f;
@@ -73,6 +118,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (ft_read(&f, argv[1]))
 		return (1);
+	ft_printmap(&f);
+	ft_print_keys();
 	ft_auto_calibrate(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
