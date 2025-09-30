@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 23:32:49 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 03:48:53 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 18:05:46 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ char	*ft_get_projection_name(t_projection proj)
 	else if (proj == PROJ_ORTHO)
 		return ("ORTO");
 	else if (proj == PROJ_PERSPECTIVE)
-		return ("CONIC");
+		return ("PERSPECTIVE(CONIC)");
+	else if (proj == PROJ_POLAR)
+		return ("POLAR");
+	else if (proj == PROJ_CILINDRIC)
+		return ("CILINDRIC (z focal)");
 	return ("UNKNOW");
 }

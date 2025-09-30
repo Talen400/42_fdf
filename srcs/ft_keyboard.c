@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 03:15:57 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 18:09:07 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ static void	ft_keyhook3(mlx_key_data_t *k, t_fdf *f)
 		f->angle_y = 0;
 		f->angle_z = 0;
 	}
+	else if (k->key == MLX_KEY_O)
+		f->projection = PROJ_POLAR;
+	else if (k->key == MLX_KEY_P)
+		f->projection = PROJ_CILINDRIC;
 	else
 		ft_keyhook4(k, f);
 }

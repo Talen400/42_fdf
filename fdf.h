@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 03:53:11 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/09/30 17:57:42 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ typedef enum e_projection
 {
 	PROJ_ISO,
 	PROJ_ORTHO,
-	PROJ_PERSPECTIVE
+	PROJ_PERSPECTIVE,
+	PROJ_POLAR,
+	PROJ_CILINDRIC
 }	t_projection;
 
 typedef struct s_fdf
@@ -151,7 +153,13 @@ t_vec2		ft_get2d(t_fdf *f, int x, int y);
 void		ft_rotatex(t_vec3 *p, float angle);
 void		ft_rotatey(t_vec3 *p, float angle);
 void		ft_rotatez(t_vec3 *p, float angle);
+
+// projections
 t_vec2		ft_iso(t_vec3 p, float angle);
+t_vec2		ft_ortho(t_vec3 p);
+t_vec2		ft_perspective(t_vec3 p, float focal_lenght);
+t_vec2		ft_polar(t_vec3 p);
+t_vec2		ft_cilindric(t_vec3 p, float focal_lenght);
 
 // auto-calibrate
 void		ft_auto_calibrate(t_fdf *f);
