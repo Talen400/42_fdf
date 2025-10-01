@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 19:01:02 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:31:49 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:51:37 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 int	ft_hex_to_int(char *hex)
 {

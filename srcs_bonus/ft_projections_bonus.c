@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:54:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 18:22:43 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:52:25 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf_bonus.h"
 
 t_vec2	ft_iso(t_vec3 p, float angle)
 {

@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.c                                          :+:      :+:    :+:   */
+/*   ft_read_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/27 23:08:58 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/29 18:09:30 by tlavared         ###   ########.fr       */
+/*   Created: 2025/09/22 22:40:31 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/01 00:52:50 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf_bonus.h"
 
-float	ft_degree_to_radian(int degree)
+void	ft_free_split(char **split)
 {
-	float	radian;
+	int	i;
 
-	radian = (M_PI / 180.0f) * degree;
-	return (radian);
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

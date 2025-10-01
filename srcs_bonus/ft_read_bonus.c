@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:06:48 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:52:41 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static void	ft_count(t_fdf *f, int fd)
 {

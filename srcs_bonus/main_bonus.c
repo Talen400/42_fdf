@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 02:15:12 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 02:17:20 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static int	ft_init(t_fdf *f)
 {
+	f->projection = PROJ_ISO;
+	f->focal_lenght = 200.0f;
+	f->angle_x = 0;
+	f->angle_y = 0;
+	f->angle_z = 0;
 	f->scale = 20.0f;
 	f->z_scale = 0.1f;
 	f->offset_x = WIDTH / 2;
@@ -56,6 +61,32 @@ static int	ft_valid(char *str)
 	return (0);
 }
 
+static void	ft_print_keys(void )
+{
+	ft_printf("--------------Keyboard------------:\n"
+		"Close window: ESC\n"
+		"Move: W A S D\n"
+		"Zoom (scale): J (in) / K (out)\n"
+		"Z scale: U (up) / I (down)\n"
+		"Focal point: N (closer) / M (farther)\n"
+		"Rotate:\n"
+		"  - X axis: LEFT / RIGHT\n"
+		"  - Y axis: UP / DOWN\n"
+		"  - Z axis: Q / A / E\n"
+		"Reset: R\n"
+		"Orthogonal Views:\n"
+		"  1: Top view\n"
+		"  2: Side view (right)\n"
+		"  3: Front/Custom view\n"
+		"  4/5/6: Custom camera angles\n"
+		"Projection types:\n"
+		"  - Isometric: T\n"
+		"  - Orthographic: Y\n"
+		"  - Perspective (Conic): G\n"
+		"  - Polar: O\n"
+		"  - Cylindric: P\n");
+}
+/*
 static void	ft_printmap(t_fdf *f)
 {
 	int	x;
@@ -74,6 +105,7 @@ static void	ft_printmap(t_fdf *f)
 		y++;
 	}
 }
+*/
 
 int	main(int argc, char *argv[])
 {
@@ -87,7 +119,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (ft_read(&f, argv[1]))
 		return (1);
-	ft_printmap(&f);
+	ft_print_keys();
 	ft_auto_calibrate(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)

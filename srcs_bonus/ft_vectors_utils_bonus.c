@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 02:53:32 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 02:53:53 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:53:05 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf_bonus.h"
 
 void	ft_rotatex(t_vec3 *p, float angle)
 {

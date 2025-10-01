@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 22:40:31 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/22 22:41:01 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 01:06:54 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf.h"
 
 void	ft_free_split(char **split)
 {

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 17:57:42 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 02:17:57 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
-# include "libft/libft.h"
-# include "MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <fcntl.h>
 
@@ -143,7 +143,6 @@ void		ft_keyhook(mlx_key_data_t keydata, void *param);
 int			ft_errorinit(mlx_t *mlx);
 int			ft_errorimg(mlx_t *mlx, mlx_image_t *img);
 void		ft_clearimg(t_fdf *s);
-void		ft_scrollhook(double xd, double yd, void *param);
 
 // bresenham
 void		ft_bresenham(t_fdf *f, t_vec2 a, t_vec2 b);

@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:50:46 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:05:40 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:51:10 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static void	ft_calculate_min_max(t_fdf *f)
 {

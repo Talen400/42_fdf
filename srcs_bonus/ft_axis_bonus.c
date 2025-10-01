@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 02:48:23 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 02:38:10 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:50:24 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static void	ft_draw_colored_line(t_fdf *f, t_vec2 start, t_vec2 end,
 	uint32_t color)

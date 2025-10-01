@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 02:34:47 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 02:35:36 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:50:36 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf_bonus.h"
 
 t_vec3	ft_rotate_axis_vector(t_fdf *f, t_vec3 axis)
 {

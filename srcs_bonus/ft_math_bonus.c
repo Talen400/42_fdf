@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_keyboard.c                                      :+:      :+:    :+:   */
+/*   ft_math.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 21:35:03 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:38:00 by tlavared         ###   ########.fr       */
+/*   Created: 2025/09/27 23:08:58 by tlavared          #+#    #+#             */
+/*   Updated: 2025/10/01 00:52:14 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
-void	ft_keyhook(mlx_key_data_t k, void *param)
+float	ft_degree_to_radian(int degree)
 {
-	t_fdf	*f;
+	float	radian;
 
-	f = (t_fdf *)param;
-	if (k.action != MLX_PRESS && k.action != MLX_REPEAT)
-		return ;
-	else if (k.key == MLX_KEY_ESCAPE)
-		mlx_close_window(f->mlx);
+	radian = (M_PI / 180.0f) * degree;
+	return (radian);
 }

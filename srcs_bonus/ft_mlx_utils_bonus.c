@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 02:41:00 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:06:36 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:52:20 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 static inline void	ft_put(uint8_t *pixels, int x, int y,
 		uint32_t color)

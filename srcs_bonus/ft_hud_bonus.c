@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 23:56:25 by tlavared          #+#    #+#             */
-/*   Updated: 2025/09/30 03:48:37 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:51:45 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fdf.h"
+#include "../includes/fdf_bonus.h"
 
 /*
  FLOAT

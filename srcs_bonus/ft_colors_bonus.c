@@ -6,11 +6,11 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 00:25:38 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:05:47 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/01 00:51:22 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fdf.h"
+#include "../includes/fdf_bonus.h"
 
 t_color	ft_init_color(uint32_t color)
 {
