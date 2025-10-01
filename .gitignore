@@ -9,3 +9,4 @@ test5.fdf
 cub.fdf
 41.fdf
 *.o
+tests/
