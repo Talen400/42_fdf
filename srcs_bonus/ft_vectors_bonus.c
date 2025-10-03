@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vectors.c                                       :+:      :+:    :+:   */
+/*   ft_vectors_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:26:36 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 00:52:58 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/03 05:07:18 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static t_vec2	ft_choose_proj(t_fdf *f, t_vec3 point3d)
 		point2d = ft_ortho(point3d);
 	else if (f->projection == PROJ_PERSPECTIVE)
 		point2d = ft_perspective(point3d, f->focal_lenght);
-	else if (f->projection == PROJ_POLAR)
-		point2d = ft_polar(point3d);
 	else if (f->projection == PROJ_POLAR)
 		point2d = ft_polar(point3d);
 	else if (f->projection == PROJ_CILINDRIC)
