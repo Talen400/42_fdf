@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:48:15 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 01:23:20 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,20 @@
 # include <math.h>
 # include <fcntl.h>
 
+# include <stdio.h>
+
 # define WIDTH 1200
 # define HEIGHT 800
 # define MARGIN 0.15f
 
 typedef struct s_map
 {
-	int	width;
-	int	height;
-	int	**altitudes;
-	int	**colors;
-	int	min_alt;
-	int	max_alt;
+	int			width;
+	int			height;
+	int			**altitudes;
+	uint32_t	**colors;
+	int			min_alt;
+	int			max_alt;
 }	t_map;
 
 typedef struct s_vec3
@@ -41,19 +43,10 @@ typedef struct s_vec3
 
 typedef struct s_vec2
 {
-	float	x;
-	float	y;
-	float	color;
+	float		x;
+	float		y;
+	uint32_t	color;
 }	t_vec2;
-
-typedef struct s_draw
-{
-	int		x;
-	int		y;
-	t_vec3	point3d;
-	t_vec2	point2d;
-	t_vec2	next2d;
-}	t_draw;
 
 typedef struct s_bresenham
 {

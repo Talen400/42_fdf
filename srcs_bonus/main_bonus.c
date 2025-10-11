@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 02:17:20 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 02:11:23 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ static int	ft_init(t_fdf *f)
 		return (ft_errorinit(f->mlx));
 	f->pixels = f->img->pixels;
 	return (0);
-}
-
-void	ft_freemap(t_fdf *f)
-{
-	int	i;
-
-	i = 0;
-	while (i < f->map.height)
-	{
-		free(f->map.altitudes[i]);
-		free(f->map.colors[i]);
-		i++;
-	}
-	free(f->map.altitudes);
-	free(f->map.colors);
 }
 
 static int	ft_valid(char *str)
@@ -86,8 +71,8 @@ static void	ft_print_keys(void )
 		"  - Polar: O\n"
 		"  - Cylindric: P\n");
 }
-/*
-static void	ft_printmap(t_fdf *f)
+
+static void	ft_print_map(t_fdf *f)
 {
 	int	x;
 	int	y;
@@ -99,13 +84,13 @@ static void	ft_printmap(t_fdf *f)
 		while (x < f->map.width)
 		{
 			ft_printf("%d ", f->map.altitudes[y][x]);
+			ft_printf("%d ", f->map.colors[y][x]);
 			x++;
 		}
 		ft_printf("\n");
 		y++;
 	}
 }
-*/
 
 int	main(int argc, char *argv[])
 {
@@ -120,6 +105,7 @@ int	main(int argc, char *argv[])
 	if (ft_read(&f, argv[1]))
 		return (1);
 	ft_print_keys();
+	ft_print_map(&f);
 	ft_auto_calibrate(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
@@ -127,6 +113,6 @@ int	main(int argc, char *argv[])
 	mlx_key_hook(f.mlx, &ft_keyhook, &f);
 	mlx_loop(f.mlx);
 	mlx_terminate(f.mlx);
-	ft_freemap(&f);
+	ft_free_map(&f);
 	return (0);
 }

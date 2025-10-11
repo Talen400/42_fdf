@@ -11,7 +11,7 @@ RESET = \033[0m
 # Configuration
 NAME := fdf
 CC := cc
-CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 
 # Directories
 SRC_DIR := ./srcs
@@ -62,7 +62,8 @@ SRCS_BONUS := $(SRC_BONUS_DIR)/main_bonus.c \
 			  $(SRC_BONUS_DIR)/ft_read_bonus.c \
 			  $(SRC_BONUS_DIR)/ft_read_utils_bonus.c \
 			  $(SRC_BONUS_DIR)/ft_vectors_bonus.c \
-			  $(SRC_BONUS_DIR)/ft_vectors_utils_bonus.c
+			  $(SRC_BONUS_DIR)/ft_vectors_utils_bonus.c \
+			  $(SRC_BONUS_DIR)/ft_map_utils_bonus.c
 
 OBJS_BONUS := $(SRCS_BONUS:$(SRC_BONUS_DIR)/%.c=$(OBJ_BONUS_DIR)/%.o)
 
@@ -142,4 +143,18 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+MAP ?= maps/42.fdf
+
+valgrind: $(NAME)
+	@echo "$(YELLOW)Running Valgrind on $(NAME) with $(MAP)...$(RESET)"
+	@valgrind --leak-check=full --show-leak-kinds=all \
+			--track-fds=yes \
+		./$(NAME) $(MAP)
+
+valgrind_bonus: bonus
+	@echo "$(YELLOW)Running Valgrind on $(NAME) with $(MAP)...$(RESET)"
+	@valgrind --leak-check=full --show-leak-kinds=all \
+			--track-fds=yes \
+		./$(NAME) $(MAP)
+
+.PHONY: all clean fclean re bonus valgrind valgrind_bonus

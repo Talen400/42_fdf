@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_projections.c                                   :+:      :+:    :+:   */
+/*   ft_projections_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 17:54:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 00:52:25 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 01:18:49 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,22 @@ t_vec2	ft_polar(t_vec3 p)
 {
 	t_vec2	result;
 	float	r;
-	float	phi;
 	float	theta;
+	float	r_proj;
+	float	dist;
 
 	r = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-	phi = atan2(p.y, p.x);
-	theta = acos(p.z / r);
-	result.x = r * phi * cos(theta);
-	result.y = r * phi * sin(theta);
+	if (r < 0.1)
+	{
+		result.x = 0;
+		result.y = 0;
+		return (result);
+	}
+	theta = atan2(p.y, p.x);
+	dist = sqrt(p.x * p.x + p.y * p.y);
+	r_proj = (2.0 * dist) / (r + p.z + r) * 50.0;
+	result.x = r_proj * cos(theta);
+	result.y = r_proj * sin(theta);
 	return (result);
 }
 

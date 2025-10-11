@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 23:46:51 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:06:48 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 00:57:55 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ static void	ft_alloc(t_fdf	*f)
 			return ;
 		i++;
 	}
-	f->map.colors = (int **) ft_calloc(f->map.height, sizeof(int *));
+	f->map.colors = (uint32_t **) ft_calloc(f->map.height, sizeof(uint32_t *));
 	if (!f->map.colors)
 		return ;
 	i = 0;
 	while (i < f->map.height)
 	{
-		f->map.colors[i] = (int *) ft_calloc(f->map.width, sizeof(int));
+		f->map.colors[i] = (uint32_t *) ft_calloc(f->map.width,
+				sizeof(uint32_t));
 		if (!f->map.colors[i])
 			return ;
 		i++;

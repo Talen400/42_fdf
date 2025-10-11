@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 02:15:12 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 02:12:29 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ static void	ft_printmap(t_fdf *f)
 		while (x < f->map.width)
 		{
 			ft_printf("%d ", f->map.altitudes[y][x]);
+			ft_printf("%d ", f->map.colors[y][x]);
 			x++;
 		}
 		ft_printf("\n");
 		y++;
 	}
+	y = 0;
 }
 
 int	main(int argc, char *argv[])

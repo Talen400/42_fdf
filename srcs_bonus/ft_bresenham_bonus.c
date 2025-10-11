@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bresenham.c                                     :+:      :+:    :+:   */
+/*   ft_bresenham_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:22:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 00:50:53 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 01:15:03 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline void	ft_put(uint8_t *pixels, int x, int y,
 	}
 }
 
-static void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
+static inline void	ft_bresenham_init(t_bresenham *bre, t_vec2 a, t_vec2 b)
 {
 	bre->dx = fabs(b.x - a.x);
 	bre->dy = fabs(b.y - a.y);

@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 11:22:04 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 01:05:13 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 01:14:22 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static float	ft_ratio(int step, float dist)
 	return (0.0f);
 }
 
-static void	ft_calc(t_fdf *f, int *x0, int *y0)
+static inline void	ft_calc(t_fdf *f, int *x0, int *y0)
 {
 	f->bre.e2 = 2 * f->bre.err;
 	if (f->bre.e2 > -f->bre.dy)

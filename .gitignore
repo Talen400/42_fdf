@@ -11,3 +11,4 @@ cub.fdf
 *.o
 tests/
 test_maps/
+test

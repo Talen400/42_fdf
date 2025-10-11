@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/01 02:17:57 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/11 01:23:55 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@
 
 typedef struct s_map
 {
-	int	width;
-	int	height;
-	int	**altitudes;
-	int	**colors;
-	int	min_alt;
-	int	max_alt;
+	int			width;
+	int			height;
+	int			**altitudes;
+	uint32_t	**colors;
+	int			min_alt;
+	int			max_alt;
 }	t_map;
 
 typedef struct s_vec3
@@ -48,19 +48,10 @@ typedef struct s_vec3
 
 typedef struct s_vec2
 {
-	float	x;
-	float	y;
-	float	color;
+	float		x;
+	float		y;
+	uint32_t	color;
 }	t_vec2;
-
-typedef struct s_draw
-{
-	int		x;
-	int		y;
-	t_vec3	point3d;
-	t_vec2	point2d;
-	t_vec2	next2d;
-}	t_draw;
 
 typedef struct s_bresenham
 {
@@ -137,6 +128,9 @@ int			ft_read(t_fdf *f, char *filename);
 
 // main of draw
 void		ft_draw(t_fdf *f);
+
+// map utils
+void		ft_free_map(t_fdf *f);
 
 // MLX42
 void		ft_keyhook(mlx_key_data_t keydata, void *param);
