@@ -1,6 +1,6 @@
 ## FDF (Fil de Fer / Wireframe)
 
-> FDF (Fil de Fer, meaning "Iron Wire" or **Wireframe**) is a project that renders a **landscape wireframe in 2.5D** from elevation data (in the `.fdf` format), utilizing techniques of **linear transformation**, **projection**, and **line rasterization**. Developed with passion and dedication, FDF transforms pixels into 3D shapes\!
+FDF (Fil de Fer, meaning "Iron Wire" or **Wireframe**) is a project that renders a **landscape wireframe in 2.5D** from elevation data (in the `.fdf` format), utilizing techniques of **linear transformation**, **projection**, and **line rasterization**. Developed with passion and dedication, FDF transforms pixels into 3D shapes!
 
 -----
 ## 🖼️ Visual Showcase
