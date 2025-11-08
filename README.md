@@ -91,7 +91,7 @@ sudo apt install build-essential cmake libglfw3-dev libglew-dev libglu1-mesa-dev
 The **MLX42** library is included as a Git Submodule. Use the `--recurse-submodules` flag to clone the repository and automatically initialize and update the submodule:
 
 ```bash
-git clone --recurse-submodules [Your Repo Link Here]
+git clone --recurse-submodules https://github.com/Talen400/42_fdf.git
 cd fdf
 ```
 
