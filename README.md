@@ -56,7 +56,7 @@ The elevation map is read from an input file with the extension `.fdf` in the fo
 
 After memory allocation, the program performs the mathematical calculations to prepare the data for the rasterized screen:
 
-  * A **3D to 2D linear transformation** (projection) is applied to each point, converting the 3D world coordinates $$(x, y, z)$$to the 2D screen coordinates$$(x', y')$$, using **vector mathematics**.
+  * A **3D to 2D linear transformation** (projection) is applied to each point, converting the 3D world coordinates (x, y, z) to the 2D screen coordinates (x', y'), using **vector mathematics**.
 
 ### 3\. Rendering
 
