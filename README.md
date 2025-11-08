@@ -33,7 +33,7 @@ The **MLX42** library is included as a Git Submodule. Use the `--recurse-submodu
 
 ```bash
 git clone --recurse-submodules https://github.com/Talen400/42_fdf.git
-cd fdf
+cd 42_fdf
 ```
 
 ### 3\. Compile the Program
