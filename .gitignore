@@ -12,3 +12,6 @@ cub.fdf
 tests/
 test_maps/
 test
+.mandatory
+.bonus
+*.a

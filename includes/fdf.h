@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 23:37:12 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/11 01:23:20 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/20 22:37:41 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # include <stdio.h>
 
-# define WIDTH 1200
+# define WIDTH 1280
 # define HEIGHT 800
 # define MARGIN 0.15f
 

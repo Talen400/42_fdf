@@ -6,7 +6,7 @@
 /*   By: tlavared <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 03:09:20 by tlavared          #+#    #+#             */
-/*   Updated: 2025/10/11 02:11:23 by tlavared         ###   ########.fr       */
+/*   Updated: 2025/10/20 23:04:28 by tlavared         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	ft_print_keys(void )
 		"  - Polar: O\n"
 		"  - Cylindric: P\n");
 }
-
+/*
 static void	ft_print_map(t_fdf *f)
 {
 	int	x;
@@ -91,7 +91,7 @@ static void	ft_print_map(t_fdf *f)
 		y++;
 	}
 }
-
+*/
 int	main(int argc, char *argv[])
 {
 	t_fdf	f;
@@ -104,8 +104,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (ft_read(&f, argv[1]))
 		return (1);
+	//ft_print_map(&f);
 	ft_print_keys();
-	ft_print_map(&f);
 	ft_auto_calibrate(&f);
 	ft_draw(&f);
 	if (mlx_image_to_window(f.mlx, f.img, 0, 0) == -1)
