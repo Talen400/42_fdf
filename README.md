@@ -7,6 +7,10 @@
 
 The following examples demonstrate FDF's rendering capabilities, color interpolation, and bonus features.
 
+![Render of FDF](assets/chess.png)
+![Render of FDF](assets/example1.png)
+![Render of FDF](assets/lego.png)
+![Render of FDF](assets/spiral_tupla.png)
 ![Render of FDF](assets/:3.png)
 -----
 
